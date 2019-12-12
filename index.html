@@ -186,14 +186,14 @@
 <li><a href="#5usermapperxml文件配置">5.UserMapper.xml文件配置</a></li>
 <li><a href="#6编写测试类">6.编写测试类</a></li>
 <li><a href="#7测试结果">7.测试结果</a></li>
-<li><a href="#8感受">8.感受</a><pre><code>- [经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。](#经过一番折腾总算是把它弄出来了在引用的时候要特别注意路径的问题还有maven版本和mybatis版本也要注意甚至时区问题都能有也是服了mybatis类的属性名和表的字段名要一致)</code></pre><ul>
+<li><a href="#8感受">8.感受</a><ul>
 <li><a href="#改革尚未成功同志仍需努力">改革尚未成功，同志仍需努力。</a></li>
 </ul>
 </li>
 </ul>
 <!-- /TOC -->
 
-<h2 id="1-工程目录"><a href="#1-工程目录" class="headerlink" title="1.工程目录"></a>1.工程目录</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="./imgss/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="2-porn-xml文件"><a href="#2-porn-xml文件" class="headerlink" title="2.porn.xml文件"></a>2.porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
+<h2 id="1-工程目录"><a href="#1-工程目录" class="headerlink" title="1.工程目录"></a>1.工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="2-porn-xml文件"><a href="#2-porn-xml文件" class="headerlink" title="2.porn.xml文件"></a>2.porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
 &lt;artifactId&gt;LearnMybatis&lt;/artifactId&gt;
 &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
 &lt;packaging&gt;jar&lt;/packaging&gt;
@@ -247,9 +247,9 @@
         &lt;mapper resource=&quot;com/study/mapper/UserMapper.xml&quot;/&gt;
     &lt;/mappers&gt;
 &lt;/configuration&gt;</code></pre><hr>
-<h2 id="4-User类以及Mysql中的user表"><a href="#4-User类以及Mysql中的user表" class="headerlink" title="4.User类以及Mysql中的user表"></a>4.User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="./imgss/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6mybatis/User%E7%B1%BB.png" alt="User类"></p>
+<h2 id="4-User类以及Mysql中的user表"><a href="#4-User类以及Mysql中的user表" class="headerlink" title="4.User类以及Mysql中的user表"></a>4.User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
 <p>###user表</p>
-<p><img src="./imgss/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6mybatis/user%E8%A1%A8.png" alt="user表"></p>
+<p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/user%E8%A1%A8.png" alt="user表"></p>
 <hr>
 <h2 id="5-UserMapper-xml文件配置"><a href="#5-UserMapper-xml文件配置" class="headerlink" title="5.UserMapper.xml文件配置"></a>5.UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
@@ -283,8 +283,9 @@ public static void main(String[] args) throws Exception{
     }
 }
 }</code></pre><hr>
-<h2 id="7-测试结果"><a href="#7-测试结果" class="headerlink" title="7.测试结果"></a>7.测试结果</h2><p><img src="./imgss/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
-<h2 id="8-感受"><a href="#8-感受" class="headerlink" title="8.感受"></a>8.感受</h2><h4 id="经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。"><a href="#经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。" class="headerlink" title="经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。"></a>经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</h4><h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>
+<h2 id="7-测试结果"><a href="#7-测试结果" class="headerlink" title="7.测试结果"></a>7.测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
+<h2 id="8-感受"><a href="#8-感受" class="headerlink" title="8.感受"></a>8.感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
+<h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>
       
 
       
