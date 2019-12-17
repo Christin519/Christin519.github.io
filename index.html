@@ -192,100 +192,7 @@
 </li>
 </ul>
 <!-- /TOC -->
-
-<h2 id="1-工程目录"><a href="#1-工程目录" class="headerlink" title="1.工程目录"></a>1.工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="2-porn-xml文件"><a href="#2-porn-xml文件" class="headerlink" title="2.porn.xml文件"></a>2.porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
-&lt;artifactId&gt;LearnMybatis&lt;/artifactId&gt;
-&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-&lt;packaging&gt;jar&lt;/packaging&gt;
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
-        &lt;version&gt;3.5.3&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;mysql&lt;/groupId&gt;
-        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-        &lt;version&gt;8.0.17&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;log4j&lt;/groupId&gt;
-        &lt;artifactId&gt;log4j&lt;/artifactId&gt;
-        &lt;version&gt;1.2.12&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.13-rc-2&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;</code></pre><hr>
-<h2 id="3-mybatis-config-xml全局配置文件"><a href="#3-mybatis-config-xml全局配置文件" class="headerlink" title="3.mybatis-config.xml全局配置文件"></a>3.mybatis-config.xml全局配置文件</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE configuration
-    PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
-
-&lt;configuration&gt;
-&lt;!-- 配置环境 --&gt;
-    &lt;environments default=&quot;mysql&quot;&gt;
-    &lt;!-- 配置mysql的环境--&gt;
-        &lt;environment id=&quot;mysql&quot;&gt;
-        &lt;!-- 配置事务的类型--&gt;
-            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
-            &lt;!-- 配置数据源（连接池） --&gt;
-                &lt;dataSource type=&quot;POOLED&quot;&gt;
-                &lt;!-- 配置连接数据库的4个基本信息 --&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;
-                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/mybatis?    serverTimezone=UTC&quot;/&gt;
-                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
-                &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;
-            &lt;/dataSource&gt;
-        &lt;/environment&gt;
-    &lt;/environments&gt;
-
-    &lt;!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 --&gt;
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;com/study/mapper/UserMapper.xml&quot;/&gt;
-    &lt;/mappers&gt;
-&lt;/configuration&gt;</code></pre><hr>
-<h2 id="4-User类以及Mysql中的user表"><a href="#4-User类以及Mysql中的user表" class="headerlink" title="4.User类以及Mysql中的user表"></a>4.User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
-<p>###user表</p>
-<p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/user%E8%A1%A8.png" alt="user表"></p>
-<hr>
-<h2 id="5-UserMapper-xml文件配置"><a href="#5-UserMapper-xml文件配置" class="headerlink" title="5.UserMapper.xml文件配置"></a>5.UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;!DOCTYPE mapper
-    PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-&lt;mapper namespace=&quot;com.study.mapper.UserMapper&quot;&gt;
-    &lt;select id=&quot;selectuser&quot; resultType=&quot;com.study.domain.User&quot;&gt;
-        select * from user where id=#{id}
-    &lt;/select&gt;
-    &lt;select id=&quot;selectall&quot; resultType=&quot;com.study.domain.User&quot;&gt;
-        select * from user
-    &lt;/select&gt;
-&lt;/mapper&gt;</code></pre><hr>
-<h2 id="6-编写测试类"><a href="#6-编写测试类" class="headerlink" title="6.编写测试类"></a>6.编写测试类</h2><pre><code>public class MybatisTest {
-
-@Test
-public static void main(String[] args) throws Exception{
-    String resource=&quot;Mybatis-config.xml&quot;;
-    InputStream in=Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlsf=new SqlSessionFactoryBuilder().build(in);
-    SqlSession os=sqlsf.openSession();
-    try {
-        //User u=os.selectOne(&quot;com.study.mapper.UserMapper.selectuser&quot;,1);
-        List&lt;User&gt; ul=os.selectList(&quot;com.study.mapper.UserMapper.selectall&quot;);
-        //System.out.println(u);
-        for(User u:ul){
-            System.out.println(u.getId()+&quot;,&quot;+u.getUsername()+&quot;\n&quot;);
-        }
-    }finally {
-        os.close();
-    }
-}
-}</code></pre><hr>
-<h2 id="7-测试结果"><a href="#7-测试结果" class="headerlink" title="7.测试结果"></a>7.测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
-<h2 id="8-感受"><a href="#8-感受" class="headerlink" title="8.感受"></a>8.感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
-<h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>
+        
       
 
       
@@ -299,6 +206,10 @@ public static void main(String[] args) throws Exception{
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSM</a>
         		</li>
       		
 		</ul>
@@ -548,19 +459,8 @@ public static void main(String[] args) throws Exception{
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo server</span></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo generate</span></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2>
+        
       
 
       
@@ -696,6 +596,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
               </li>
             
             <div class="clearfix"></div>
