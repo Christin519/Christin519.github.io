@@ -91,7 +91,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis&#x2F;user%E8%A1%A8.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis&#x2F;%E7%BB%93%E6%9E%9C.png">
 <meta property="article:published_time" content="2019-12-11T04:41:08.000Z">
-<meta property="article:modified_time" content="2019-12-17T05:59:02.398Z">
+<meta property="article:modified_time" content="2020-01-07T07:25:25.624Z">
 <meta property="article:author" content="Christin">
 <meta property="article:tag" content="mybatis">
 <meta property="article:tag" content="SSM">
@@ -363,7 +363,7 @@
 
 <a id="more"></a>
 
-<h2 id="1-工程目录"><a href="#1-工程目录" class="headerlink" title="1.工程目录"></a>1.工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="2-porn-xml文件"><a href="#2-porn-xml文件" class="headerlink" title="2.porn.xml文件"></a>2.porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
+<h2 id="工程目录"><a href="#工程目录" class="headerlink" title="工程目录"></a>工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="porn-xml文件"><a href="#porn-xml文件" class="headerlink" title="porn.xml文件"></a>porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
 &lt;artifactId&gt;LearnMybatis&lt;/artifactId&gt;
 &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
 &lt;packaging&gt;jar&lt;/packaging&gt;
@@ -389,7 +389,7 @@
         &lt;version&gt;4.13-rc-2&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre><hr>
-<h2 id="3-mybatis-config-xml全局配置文件"><a href="#3-mybatis-config-xml全局配置文件" class="headerlink" title="3.mybatis-config.xml全局配置文件"></a>3.mybatis-config.xml全局配置文件</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<h2 id="mybatis-config-xml全局配置文件"><a href="#mybatis-config-xml全局配置文件" class="headerlink" title="mybatis-config.xml全局配置文件"></a>mybatis-config.xml全局配置文件</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE configuration
     PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
@@ -417,10 +417,10 @@
         &lt;mapper resource=&quot;com/study/mapper/UserMapper.xml&quot;/&gt;
     &lt;/mappers&gt;
 &lt;/configuration&gt;</code></pre><hr>
-<h2 id="4-User类以及Mysql中的user表"><a href="#4-User类以及Mysql中的user表" class="headerlink" title="4.User类以及Mysql中的user表"></a>4.User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
+<h2 id="User类以及Mysql中的user表"><a href="#User类以及Mysql中的user表" class="headerlink" title="User类以及Mysql中的user表"></a>User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
 <h3 id="user表"><a href="#user表" class="headerlink" title="user表"></a>user表</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/user%E8%A1%A8.png" alt="user表"></p>
 <hr>
-<h2 id="5-UserMapper-xml文件配置"><a href="#5-UserMapper-xml文件配置" class="headerlink" title="5.UserMapper.xml文件配置"></a>5.UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+<h2 id="UserMapper-xml文件配置"><a href="#UserMapper-xml文件配置" class="headerlink" title="UserMapper.xml文件配置"></a>UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
@@ -432,7 +432,7 @@
         select * from user
     &lt;/select&gt;
 &lt;/mapper&gt;</code></pre><hr>
-<h2 id="6-编写测试类"><a href="#6-编写测试类" class="headerlink" title="6.编写测试类"></a>6.编写测试类</h2><pre><code>public class MybatisTest {
+<h2 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h2><pre><code>public class MybatisTest {
 
 @Test
 public static void main(String[] args) throws Exception{
@@ -452,8 +452,8 @@ public static void main(String[] args) throws Exception{
     }
 }
 }</code></pre><hr>
-<h2 id="7-测试结果"><a href="#7-测试结果" class="headerlink" title="7.测试结果"></a>7.测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
-<h2 id="8-感受"><a href="#8-感受" class="headerlink" title="8.感受"></a>8.感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
+<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
 <h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>
       
     </div>
@@ -524,6 +524,10 @@ public static void main(String[] args) throws Exception{
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/" rel="prev" title="Spring Boot入门">
+                Spring Boot入门 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -604,7 +608,7 @@ public static void main(String[] args) throws Exception{
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -617,7 +621,7 @@ public static void main(String[] args) throws Exception{
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -666,7 +670,7 @@ public static void main(String[] args) throws Exception{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-工程目录"><span class="nav-number">1.</span> <span class="nav-text">1.工程目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-porn-xml文件"><span class="nav-number">3.</span> <span class="nav-text">2.porn.xml文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-mybatis-config-xml全局配置文件"><span class="nav-number">4.</span> <span class="nav-text">3.mybatis-config.xml全局配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-User类以及Mysql中的user表"><span class="nav-number">5.</span> <span class="nav-text">4.User类以及Mysql中的user表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#User类"><span class="nav-number">5.1.</span> <span class="nav-text">User类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user表"><span class="nav-number">5.2.</span> <span class="nav-text">user表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-UserMapper-xml文件配置"><span class="nav-number">6.</span> <span class="nav-text">5.UserMapper.xml文件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-编写测试类"><span class="nav-number">7.</span> <span class="nav-text">6.编写测试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-测试结果"><span class="nav-number">8.</span> <span class="nav-text">7.测试结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-感受"><span class="nav-number">9.</span> <span class="nav-text">8.感受</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改革尚未成功，同志仍需努力。"><span class="nav-number">9.1.</span> <span class="nav-text">改革尚未成功，同志仍需努力。</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工程目录"><span class="nav-number">1.</span> <span class="nav-text">工程目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#porn-xml文件"><span class="nav-number">3.</span> <span class="nav-text">porn.xml文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-config-xml全局配置文件"><span class="nav-number">4.</span> <span class="nav-text">mybatis-config.xml全局配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User类以及Mysql中的user表"><span class="nav-number">5.</span> <span class="nav-text">User类以及Mysql中的user表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#User类"><span class="nav-number">5.1.</span> <span class="nav-text">User类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user表"><span class="nav-number">5.2.</span> <span class="nav-text">user表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UserMapper-xml文件配置"><span class="nav-number">6.</span> <span class="nav-text">UserMapper.xml文件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写测试类"><span class="nav-number">7.</span> <span class="nav-text">编写测试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结果"><span class="nav-number">8.</span> <span class="nav-text">测试结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感受"><span class="nav-number">9.</span> <span class="nav-text">感受</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改革尚未成功，同志仍需努力。"><span class="nav-number">9.1.</span> <span class="nav-text">改革尚未成功，同志仍需努力。</span></a></li></ol></li></ol></div>
             
 
           </div>

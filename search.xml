@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring Boot入门</title>
+    <url>/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<a id="more"></a>
+
+<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><p>​        对于一个刚学了9天，且仅仅了解一点点Spring，SpringMVC的人来说，Spring Boot是Spring和SpringMVC的自动配置版，容易上手，只需导入相关模块的启动器，就可以使用，免去了大量xml文件的配置，并且内嵌了Tomcat(默认)，Jetty，Undertow。省去了配tomcat的烦恼。spring boot大量使用注解的方式进行开发，也可以通过重写配置类修改默认配置，非常的便捷。并且spring boot可以整合其他优秀的框架和技术。</p>
+<p>​        这9天使用spring boot 2.2.2版本进行学习，看了一些视频，看了一些博客，还翻了官方文档，算是有了一个初步的了解。</p>
+<hr>
+<h2 id="Spring-Boot初体验之Hello-World"><a href="#Spring-Boot初体验之Hello-World" class="headerlink" title="Spring Boot初体验之Hello World"></a>Spring Boot初体验之Hello World</h2><h4 id="Spring-Boot工程目录结构"><a href="#Spring-Boot工程目录结构" class="headerlink" title="Spring Boot工程目录结构"></a>Spring Boot工程目录结构</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/SB%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="SB工程目录"></p>
+<h4 id="导入Web模块依赖"><a href="#导入Web模块依赖" class="headerlink" title="导入Web模块依赖"></a>导入Web模块依赖</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="Controller层"><a href="#Controller层" class="headerlink" title="Controller层"></a>Controller层</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Controller</span></pre></td></tr><tr><td class="code"><pre><span class="line">public class HelloController &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    @ResponseBody</span></pre></td></tr><tr><td class="code"><pre><span class="line">    @RequestMapping(&quot;&#x2F;hello&quot;)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    public String hello()&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        return &quot;Hello World!&quot;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h4 id="运行主程序"><a href="#运行主程序" class="headerlink" title="运行主程序"></a>运行主程序</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/%E4%B8%BB%E7%A8%8B%E5%BA%8F.png" alt></p>
+<h4 id="控制台打印的日志信息"><a href="#控制台打印的日志信息" class="headerlink" title="控制台打印的日志信息"></a>控制台打印的日志信息</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/%E6%97%A5%E5%BF%97.png" alt></p>
+<h4 id="浏览器访问8080端口发送hello请求"><a href="#浏览器访问8080端口发送hello请求" class="headerlink" title="浏览器访问8080端口发送hello请求"></a>浏览器访问8080端口发送hello请求</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/hello.png" alt></p>
+<h4 id="第一步走出去了！！！"><a href="#第一步走出去了！！！" class="headerlink" title="第一步走出去了！！！"></a>第一步走出去了！！！</h4><h2 id="持续更新中。。。"><a href="#持续更新中。。。" class="headerlink" title="持续更新中。。。"></a>持续更新中。。。</h2>]]></content>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>第一次接触Mybatis</title>
     <url>/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/</url>
     <content><![CDATA[<!-- TOC -->
@@ -26,7 +48,7 @@
 
 <a id="more"></a>
 
-<h2 id="1-工程目录"><a href="#1-工程目录" class="headerlink" title="1.工程目录"></a>1.工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="2-porn-xml文件"><a href="#2-porn-xml文件" class="headerlink" title="2.porn.xml文件"></a>2.porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
+<h2 id="工程目录"><a href="#工程目录" class="headerlink" title="工程目录"></a>工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><h2 id="porn-xml文件"><a href="#porn-xml文件" class="headerlink" title="porn.xml文件"></a>porn.xml文件</h2><pre><code>&lt;groupId&gt;com.study&lt;/groupId&gt;
 &lt;artifactId&gt;LearnMybatis&lt;/artifactId&gt;
 &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
 &lt;packaging&gt;jar&lt;/packaging&gt;
@@ -52,7 +74,7 @@
         &lt;version&gt;4.13-rc-2&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre><hr>
-<h2 id="3-mybatis-config-xml全局配置文件"><a href="#3-mybatis-config-xml全局配置文件" class="headerlink" title="3.mybatis-config.xml全局配置文件"></a>3.mybatis-config.xml全局配置文件</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<h2 id="mybatis-config-xml全局配置文件"><a href="#mybatis-config-xml全局配置文件" class="headerlink" title="mybatis-config.xml全局配置文件"></a>mybatis-config.xml全局配置文件</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE configuration
     PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
@@ -80,10 +102,10 @@
         &lt;mapper resource=&quot;com/study/mapper/UserMapper.xml&quot;/&gt;
     &lt;/mappers&gt;
 &lt;/configuration&gt;</code></pre><hr>
-<h2 id="4-User类以及Mysql中的user表"><a href="#4-User类以及Mysql中的user表" class="headerlink" title="4.User类以及Mysql中的user表"></a>4.User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
+<h2 id="User类以及Mysql中的user表"><a href="#User类以及Mysql中的user表" class="headerlink" title="User类以及Mysql中的user表"></a>User类以及Mysql中的user表</h2><h3 id="User类"><a href="#User类" class="headerlink" title="User类"></a>User类</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/User%E7%B1%BB.png" alt="User类"></p>
 <h3 id="user表"><a href="#user表" class="headerlink" title="user表"></a>user表</h3><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/user%E8%A1%A8.png" alt="user表"></p>
 <hr>
-<h2 id="5-UserMapper-xml文件配置"><a href="#5-UserMapper-xml文件配置" class="headerlink" title="5.UserMapper.xml文件配置"></a>5.UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+<h2 id="UserMapper-xml文件配置"><a href="#UserMapper-xml文件配置" class="headerlink" title="UserMapper.xml文件配置"></a>UserMapper.xml文件配置</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
@@ -95,7 +117,7 @@
         select * from user
     &lt;/select&gt;
 &lt;/mapper&gt;</code></pre><hr>
-<h2 id="6-编写测试类"><a href="#6-编写测试类" class="headerlink" title="6.编写测试类"></a>6.编写测试类</h2><pre><code>public class MybatisTest {
+<h2 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h2><pre><code>public class MybatisTest {
 
 @Test
 public static void main(String[] args) throws Exception{
@@ -115,8 +137,8 @@ public static void main(String[] args) throws Exception{
     }
 }
 }</code></pre><hr>
-<h2 id="7-测试结果"><a href="#7-测试结果" class="headerlink" title="7.测试结果"></a>7.测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
-<h2 id="8-感受"><a href="#8-感受" class="headerlink" title="8.感受"></a>8.感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
+<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
 <h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>]]></content>
       <tags>
         <tag>mybatis</tag>
