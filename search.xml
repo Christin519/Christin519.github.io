@@ -3,11 +3,10 @@
   <entry>
     <title>Spring Boot入门</title>
     <url>/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<p>[TOC]</p>
+    <content><![CDATA[<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><p>​        对于一个刚学了9天，且仅仅了解一点点Spring，SpringMVC的人来说，Spring Boot是Spring和SpringMVC的自动配置版，容易上手，只需导入相关模块的启动器，就可以使用，免去了大量xml文件的配置，并且内嵌了Tomcat(默认)，Jetty，Undertow。省去了配tomcat的烦恼。spring boot大量使用注解的方式进行开发，也可以通过重写配置类修改默认配置，非常的便捷。并且spring boot可以整合其他优秀的框架和技术。</p>
+<p>​        这9天使用spring boot 2.2.2版本进行学习，看了一些视频，看了一些博客，还翻了官方文档，算是有了一个初步的了解。</p>
 <a id="more"></a>
 
-<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><p>​        对于一个刚学了9天，且仅仅了解一点点Spring，SpringMVC的人来说，Spring Boot是Spring和SpringMVC的自动配置版，容易上手，只需导入相关模块的启动器，就可以使用，免去了大量xml文件的配置，并且内嵌了Tomcat(默认)，Jetty，Undertow。省去了配tomcat的烦恼。spring boot大量使用注解的方式进行开发，也可以通过重写配置类修改默认配置，非常的便捷。并且spring boot可以整合其他优秀的框架和技术。</p>
-<p>​        这9天使用spring boot 2.2.2版本进行学习，看了一些视频，看了一些博客，还翻了官方文档，算是有了一个初步的了解。</p>
 <hr>
 <h2 id="Spring-Boot初体验之Hello-World"><a href="#Spring-Boot初体验之Hello-World" class="headerlink" title="Spring Boot初体验之Hello World"></a>Spring Boot初体验之Hello World</h2><h4 id="Spring-Boot工程目录结构"><a href="#Spring-Boot工程目录结构" class="headerlink" title="Spring Boot工程目录结构"></a>Spring Boot工程目录结构</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/SB%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="SB工程目录"></p>
 <h4 id="导入Web模块依赖"><a href="#导入Web模块依赖" class="headerlink" title="导入Web模块依赖"></a>导入Web模块依赖</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></pre></td></tr></table></figure>
