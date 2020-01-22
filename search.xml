@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Tags-Cloud-Test</title>
+    <url>/2020/01/22/Tags-Cloud-Test/</url>
+    <content><![CDATA[<p>test</p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>标签云大小测试</p>
+<hr>
+<h3 id="end"><a href="#end" class="headerlink" title="end"></a>end</h3>]]></content>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>SSM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Boot入门</title>
     <url>/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><p>​        对于一个刚学了9天，且仅仅了解一点点Spring，SpringMVC的人来说，Spring Boot是Spring和SpringMVC的自动配置版，容易上手，只需导入相关模块的启动器，就可以使用，免去了大量xml文件的配置，并且内嵌了Tomcat(默认)，Jetty，Undertow。省去了配tomcat的烦恼。spring boot大量使用注解的方式进行开发，也可以通过重写配置类修改默认配置，非常的便捷。并且spring boot可以整合其他优秀的框架和技术。</p>
@@ -140,8 +152,8 @@ public static void main(String[] args) throws Exception{
 <h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
 <h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>]]></content>
       <tags>
-        <tag>Mybatis</tag>
         <tag>SSM</tag>
+        <tag>Mybatis</tag>
       </tags>
   </entry>
   <entry>
