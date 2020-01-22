@@ -140,7 +140,7 @@ public static void main(String[] args) throws Exception{
 <h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
 <h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>]]></content>
       <tags>
-        <tag>mybatis</tag>
+        <tag>Mybatis</tag>
         <tag>SSM</tag>
       </tags>
   </entry>
