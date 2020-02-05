@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="Cplayer                                                                  C-player">
+  <meta name="description" content="Cplayer                                                                     C-player">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Christin&#39;s Blog">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;Cplayer.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
-<meta property="og:description" content="Cplayer                                                                  C-player">
+<meta property="og:description" content="Cplayer                                                                     C-player">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;line.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;player_bar.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;disc.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;cover.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;comment.user.avatarUrl">
-<meta property="article:published_time" content="2020-02-05T11:59:18.272Z">
-<meta property="article:modified_time" content="2020-02-05T11:59:18.272Z">
+<meta property="article:published_time" content="2020-02-05T12:19:23.995Z">
+<meta property="article:modified_time" content="2020-02-05T12:19:23.995Z">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;line.png">
@@ -251,6 +251,7 @@
 </head>
 
 <body>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
   <div class="wrap">
     <!-- 播放器主体区域 -->
     <div class="play_wrap" id="player">
@@ -265,7 +266,7 @@
           <ul class="song_list">
            <li v-for="(song,index) in songs">
                 <a href="javascript:;" @click="playAndShowComments(song.id,song.album.id)"></a>
-                <b></b>
+                <b v-text="song.name"></b>
                 <span><i @click="watchMV(song.mvid)" v-show="song.mvid!=0"></i></span>
             </li>
           </ul>
@@ -284,8 +285,8 @@
             <div class="comment_list">
             <dl v-for=" comment in hotComments">
                 <dt><img :src="comment.user.avatarUrl"></dt>
-                <dd class="name"></dd>
-                <dd class="detail"></dd>
+                <dd class="name" t-text="comment.user.nickname"></dd>
+                <dd class="detail" v-text="comment.content"></dd>
             </dl>
             </div>
         </div>
