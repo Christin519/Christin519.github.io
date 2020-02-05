@@ -36,6 +36,9 @@
 <h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>标签云大小测试</p>
 <hr>
 <h3 id="end"><a href="#end" class="headerlink" title="end"></a>end</h3>]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
       <tags>
         <tag>Spring Boot</tag>
         <tag>SSM</tag>
@@ -58,6 +61,9 @@
 <h4 id="控制台打印的日志信息"><a href="#控制台打印的日志信息" class="headerlink" title="控制台打印的日志信息"></a>控制台打印的日志信息</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/%E6%97%A5%E5%BF%97.png" alt></p>
 <h4 id="浏览器访问8080端口发送hello请求"><a href="#浏览器访问8080端口发送hello请求" class="headerlink" title="浏览器访问8080端口发送hello请求"></a>浏览器访问8080端口发送hello请求</h4><p><img src="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/hello.png" alt></p>
 <h4 id="第一步走出去了！！！"><a href="#第一步走出去了！！！" class="headerlink" title="第一步走出去了！！！"></a>第一步走出去了！！！</h4><h2 id="持续更新中。。。"><a href="#持续更新中。。。" class="headerlink" title="持续更新中。。。"></a>持续更新中。。。</h2>]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
       <tags>
         <tag>Spring Boot</tag>
       </tags>
@@ -180,6 +186,9 @@ public static void main(String[] args) throws Exception{
 <h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/%E7%BB%93%E6%9E%9C.png" alt="结果"></p>
 <h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>   经过一番折腾，总算是把它弄出来了，在引用的时候要特别注意路径的问题，还有maven版本和mybatis版本也要注意，甚至时区问题都能有也是服了。mybatis类的属性名和表的字段名要一致。</p>
 <h3 id="改革尚未成功，同志仍需努力。"><a href="#改革尚未成功，同志仍需努力。" class="headerlink" title="改革尚未成功，同志仍需努力。"></a>改革尚未成功，同志仍需努力。</h3>]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
       <tags>
         <tag>SSM</tag>
         <tag>Mybatis</tag>
@@ -188,20 +197,26 @@ public static void main(String[] args) throws Exception{
   <entry>
     <title>更换主题</title>
     <url>/2019/12/09/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</url>
-    <content><![CDATA[<p>1 在E:\Hexo下用命令行安装：<br>    例如： git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia<br>2 配置：修改Hexo文件夹下_config.yml文件的theme为新主题名字<br>3 hexo clean 和 hexo g<br>4 hexo s重启 和 hexo d同步到github</p>
+    <content><![CDATA[<p>1 在E:\Hexo下用命令行安装：<br>    例如： git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia<br>2 配置：修改Hexo文件夹下_config.yml文件的theme为新主题名字<br>3 hexo clean 和 hexo g<br>4 hexo d同步到服务器</p>
 ]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>发布文章</title>
     <url>/2019/12/09/%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<p>1 进入E:\Hexo目录<br>2 hexo new “文章标题”<br>3 在source/_posts下会生成.md文件<br>4 打开文件(VScode等软件)进行文章编写并保存<br>5 hexo clean清理<br>6 hexo g生成<br>7 hexo d同步到github</p>
+    <content><![CDATA[<p>1 进入E:\Hexo目录<br>2 hexo new “文章标题”<br>3 在source/_posts下会生成.md文件<br>4 打开文件(Typora，VScode等软件)进行文章编写并保存<br>5 hexo clean清理<br>6 hexo g生成<br>7 hexo d同步到服务器</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>个人博客</title>
-    <url>/2019/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>我的第一次个人博客尝试</p>
-]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
