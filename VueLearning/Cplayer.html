@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="Cplayer                                                                     C-player">
+  <meta name="description" content="Cplayer                                                                  C-player">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Christin&#39;s Blog">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;Cplayer.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
-<meta property="og:description" content="Cplayer                                                                     C-player">
+<meta property="og:description" content="Cplayer                                                                  C-player">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;line.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;player_bar.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;disc.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;cover.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;comment.user.avatarUrl">
-<meta property="article:published_time" content="2020-02-05T12:19:23.995Z">
-<meta property="article:modified_time" content="2020-02-05T12:19:23.995Z">
+<meta property="article:published_time" content="2020-02-05T14:13:20.575Z">
+<meta property="article:modified_time" content="2020-02-05T14:13:20.575Z">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;images&#x2F;line.png">
@@ -256,7 +256,10 @@
     <!-- 播放器主体区域 -->
     <div class="play_wrap" id="player">
       <div class="search_bar">
-        <i class="el-icon-headset">   C-player</i>
+        <i class="el-icon-headset">C-player</i>
+        <span v-text="'--'+musicArtor"></span>
+        <span v-text="'--'+musicName"></span>
+
         <!-- 搜索歌曲 -->
         <input type="text" autocomplete="off" v-model="query" @keyup.enter="searchMusic">
       </div>
@@ -285,7 +288,7 @@
             <div class="comment_list">
             <dl v-for=" comment in hotComments">
                 <dt><img :src="comment.user.avatarUrl"></dt>
-                <dd class="name" t-text="comment.user.nickname"></dd>
+                <dd class="name" v-text="comment.user.nickname"></dd>
                 <dd class="detail" v-text="comment.content"></dd>
             </dl>
             </div>
@@ -295,8 +298,9 @@
         <audio ref="audio" @play="play" @pause="pause" src controls autoplay loop class="myaudio"></audio>
       </div>
       <div class="video_con" style="display: none;" v-show="viewMV">
-        <video controls="controls" ref="video"></video>
-        <div class="mask" @click="hiddenMV"></div>
+  <a href="javascript:;" style="color: red;position: absolute;left: 350px;" v-show="viewMV" @click="hiddenMV">关闭</a>
+        <video controls="controls" ref="video" height="150px" width="200px"></video>
+        <!-- <div class="mask" @click="hiddenMV"></div> -->
       </div>
     </div>
   </div>
@@ -310,16 +314,19 @@
               comments:[],
               isPlay:false,
               viewMV:false,
+              musicName:'',
+              musicArtor:'',
           },
           methods: {
               playAndShowComments:function(id,albumid){//点击某一首歌的播放按钮
                   this.playstart(id);//找到歌曲的url，播放歌曲
                   this.musicComment(id);//找到歌曲的热门评论
                   this.searchPhoto(albumid);//找到歌曲的专辑封面
+                  this.getDetail(id)//获得歌曲详细信息
               },
               searchMusic:function(){//搜索歌曲
                   axios.get('https://autumnfish.cn/search', {
-                    params: {keywords:this.query}
+                      params: {keywords:this.query}
                   }).then((ret) => {
                       this.songs=ret.data.result.songs;
                       console.log(this.query);
@@ -329,7 +336,7 @@
               playstart:function(id){
                   console.log(id);
                   axios.get('https://autumnfish.cn/song/url', {
-                    params: {id:id}
+                      params: {id:id}
                   }).then((ret) => {
                       console.log(id);
                       if(ret.data.data[0].url!=null){
@@ -339,6 +346,7 @@
                           alert('该歌曲无法播放');
                       }
                   }).catch((err)=>{console.log(err)})
+
               },
               musicComment:function(id){
                 axios.get('https://autumnfish.cn/comment/music', {
@@ -363,6 +371,15 @@
                             this.$refs.albumPhoto.src=ret.data.songs[0].al.picUrl;
                       }
                   }).catch((err)=>{console.log(err)})
+              },
+              getDetail:function(id){
+                axios.get('https://autumnfish.cn/song/detail', {
+                  params: {ids:id}
+                }).then((ret) => {
+                  this.musicArtor=ret.data.songs[0].ar[0].name;
+                  this.musicName=ret.data.songs[0].name;
+                  console.log(ret.data)
+                })
               },
               play:function(){
                   this.isPlay=true;
