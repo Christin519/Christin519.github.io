@@ -46,17 +46,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;index.html">
+  <meta name="description" content=".dBorder{           border: 3px solid royalblue;           border-radius: 3px;       }                                计数器方法,按钮的v-on:click(&#x3D;@)点击事件，加减函数对span内容进行修改">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Christin&#39;s Blog">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;vue_learning.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
+<meta property="og:description" content=".dBorder{           border: 3px solid royalblue;           border-radius: 3px;       }                                计数器方法,按钮的v-on:click(&#x3D;@)点击事件，加减函数对span内容进行修改">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-07T06:39:05.000Z">
-<meta property="article:modified_time" content="2020-01-07T07:11:37.230Z">
+<meta property="article:published_time" content="2020-02-05T06:25:45.017Z">
+<meta property="article:modified_time" content="2020-02-05T06:25:45.017Z">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/tags/">
+<link rel="canonical" href="http://yoursite.com/VueLearning/vue_learning">
 
 
 <script id="page-configurations">
@@ -68,7 +70,7 @@
   };
 </script>
 
-  <title>标签 | Christin's Blog
+  <title> | Christin's Blog
   </title>
   
 
@@ -207,7 +209,7 @@
     <div class="post-block" lang="zh-CN">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">标签
+<h1 class="post-title" itemprop="name headline">
 </h1>
 
 <div class="post-meta">
@@ -221,15 +223,189 @@
       
       
       <div class="post-body">
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              目前共计 6 个标签
+          
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+  <style>
+      .dBorder{
+          border: 3px solid royalblue;
+          border-radius: 3px;
+      }
+  </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <p>计数器方法,按钮的v-on:click(=@)点击事件，加减函数对span内容进行修改</p>
+            <el-button type="warning" @click="sub">-</el-button>
+            <span v-text="num"></span>
+            <el-button type="success" @click="add">+</el-button>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>v-show条件显示,根据表达式布尔值</p>
+            <h2 v-show="isShow">看不见我</h2>
+            <el-button @click="changeShow">切换</el-button>
+            <el-input v-model="age" type="number" style="width: 70px;"></el-input>
+            <span v-show="age>=18">那年</span>
+            <span v-show="age>=18" v-text="age"></span>
+            <span v-show="age>=18">，母校舞会，站着如喽啰</span>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>v-if表面效果与v-show没区别，实际上v-show只是操作了元素的display属性，而v-if将元素从dom树移除，需要频繁切换时用v-show
+            <br>v-if支持if-else形式比如这个-分数评级
+            </p>
+            <el-input v-model="score" type="number" style="width: 70px;" step="10" max="100" min="0"></el-input>
+            <div>
+                <h2 v-if="score>90">优秀</h2>
+                <h2 v-else-if="score>80">良好</h2>
+                <h2 v-else-if="score>70">中等</h2>
+                <h2 v-else-if="score>60">及格</h2>
+                <h2 v-else>哦豁</h2>
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Axios/" style="font-size: 12px; color: #ccc">Axios</a> <a href="/tags/JavaScript/" style="font-size: 12px; color: #ccc">JavaScript</a> <a href="/tags/Mybatis/" style="font-size: 12px; color: #ccc">Mybatis</a> <a href="/tags/SSM/" style="font-size: 30px; color: #111">SSM</a> <a href="/tags/Spring-Boot/" style="font-size: 30px; color: #111">Spring Boot</a> <a href="/tags/Vue/" style="font-size: 12px; color: #ccc">Vue</a>
-            </div>
-          </div>
-        
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>v-bind指令(简写为：)动态切换元素属性：src,title,class...</p>
+            <div style="background: rgb(216, 223, 128);" :title="dTitle+'，很黄很黄'" :class="{dBorder:isBorder}">这是一个黄方块</div>
+            <el-button @click="changeBorder">更改边框</el-button>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>图片切换，将图片url放入一个数组，通过动态修改img标签的src属性实现切换图片
+                ，给button绑定事件修改数组索引值来上/下一张<br>
+                <span style="color: red;">加入了轮播效果，Vue的mounted属性里放置计时器</span>
+            </p>
+            <img :src="'./backgrounds/'+photoArr[photonum]+'.jpg'" width="192px" height="120px">
+            <span v-show="photonum==0">当前第一张</span>
+            <span v-show="photonum==photoArr.length-1">当前最后一张</span><br>
+            <el-button type="info" @click="last" v-show="photonum>0">上一张</el-button>
+            <el-button type="info" @click="next" v-show="photonum<photoArr.length-1">下一张</el-button>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>v-for指令,遍历输出数组信息(item in items/item,index in items)，((item.属性名))或输出对象信息(value,key in item)，((item.key)):((item.value))<br>
+                <span style="color: red;">双大括号无法显示用双小括号表示</span>
+            </p>
+            <span style="color: red;">用了input标签ref属性,在方法中用this.$refs.refname.value获取输入的值，用push/pop来增/删最后一个</span>
+            <ul>
+                <li v-for="(lang,index) in nameArr" v-text="'编程语言：'+(index+1)+'--'+lang"></li>
+            </ul>
+            <em v-for="value,key in SpringBoot" v-text="key+'：'+value+','"></em>
+            <h4 v-for="fw in framework" v-text="'名字：'+fw.name+'，领域：'+fw.scope"></h4><br>
+            <input type="text" placeholder="请输入框架名" ref="new_FW_Name">
+            <input type="text" placeholder="请输入框架领域" ref="new_FW_Scope">
+            <el-button type="success" @click="addFrameWork">添加</el-button>
+            <el-button type="danger" @click="removeFrameWork">删除</el-button>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>
+                v-on绑定事件click传入参数，keyup事件enter修饰符。。。
+            </p>
+            <el-button type="primary" @click="addText('按我干嘛')">按钮</el-button>
+            <h3 v-text="writeText"></h3>
+            <input type="text" @keyup.enter="sayHi" ref="inputText">
+            <span>按回车</span>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+        <div>
+            <p>v-model双向数据绑定,输入框和文本内容</p>
+            <input type="text" v-model="modelText">
+            <h2 v-text="modelText"></h2>
+            <el-button type="warning" @click="changeMT">修改文本</el-button>
+        </div>
+        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
+    </div>
+</body>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data:{
+          num:1,
+          isShow:true,
+          age:17,
+          score:80,
+          dTitle:"这黄的是一个红方块",
+          isBorder:true,
+          photonum:0,
+          photoArr:[1,2,3,4,5,6],
+          nameArr:['Java','Python','Csharp','Go','Kotlin'],
+          framework:[
+              {name:'Spring',scope:'Controller'},
+              {name:'SpringMVC',scope:'View'},
+              {name:'Mybatis',scope:'Module'}
+          ],
+          SpringBoot:{
+              name:'Spring Boot',
+              scope:'V+C'
+          },
+          writeText:'',
+          modelText:'default',
+      },
+      methods: {
+          add:function(){
+              this.num++
+          },
+          sub:function(){
+              this.num--
+          },
+          changeShow:function(){
+              this.isShow=!this.isShow
+          },
+          changeBorder:function(){
+              this.isBorder=!this.isBorder
+          },
+          last:function(){
+              if(this.photonum>0){
+                this.photonum--;
+              }
+          },
+          next:function(){
+              if(this.photonum<this.photoArr.length-1){
+                this.photonum++;
+              }
+          },
+          autonext:function(){
+              if(this.photonum==this.photoArr.length-1){
+                  this.photonum=0;
+              }else{
+                  this.photonum++;
+              }
+          },
+          addFrameWork:function(){
+              //this.nameArr.push(this.$refs.new_FW_Name.value);
+              this.framework.push({name:this.$refs.new_FW_Name.value,scope:this.$refs.new_FW_Scope.value});
+          },
+          removeFrameWork:function(){
+              this.framework.pop();
+          },
+          addText:function(w){
+              this.writeText+=w;
+          },
+          sayHi:function(){
+              alert(this.$refs.inputText.value);
+          },
+          changeMT:function(){
+              this.modelText='事件修改modelText';
+          },
+      },
+      mounted(){
+          setInterval(this.autonext,2000)
+      }
+    })
+  </script>
+</html>
+
       </div>
       
       
@@ -291,6 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">1.</span> <span class="nav-text">看不见我</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">2.</span> <span class="nav-text">优秀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">3.</span> <span class="nav-text">良好</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">4.</span> <span class="nav-text">中等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">5.</span> <span class="nav-text">及格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">6.</span> <span class="nav-text">哦豁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#app"><span class="nav-number">6.0.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app"><span class="nav-number">6.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app"><span class="nav-number">7.</span> <span class="nav-text"></span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
