@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="Axios                                           发送get请求         发送post请求                           这是分割线         天气查询                  查询         长沙         岳阳         汨罗">
+  <meta name="description" content="Axios                                           天气查询                  查询         长沙         岳阳         汨罗         深圳                  近5日天气状况:">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Christin&#39;s Blog">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;VueLearning&#x2F;axios_learning.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
-<meta property="og:description" content="Axios                                           发送get请求         发送post请求                           这是分割线         天气查询                  查询         长沙         岳阳         汨罗">
+<meta property="og:description" content="Axios                                           天气查询                  查询         长沙         岳阳         汨罗         深圳                  近5日天气状况:">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-06T07:40:33.137Z">
-<meta property="article:modified_time" content="2020-02-06T07:40:33.137Z">
+<meta property="article:published_time" content="2020-02-06T07:48:22.663Z">
+<meta property="article:modified_time" content="2020-02-06T07:48:22.663Z">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 
@@ -228,7 +228,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Axios</title>
     <!-- import CSS -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -241,11 +240,6 @@
 </head>
 <body>
     <div id="app">
-        <el-button type="primary" @click="get">发送get请求</el-button>
-        <el-button type="success" @click="post">发送post请求</el-button><br>
-        <span v-text="joke"></span><br>
-        <span v-text="regMsg"></span>
-        <br><div style="width: 100%;background: pink;">这是分割线</div><br>
         <h2>天气查询</h2>
         <input type="text" v-model="city">
         <el-button type="primary" @click="weatherSerach">查询</el-button><br>
@@ -286,33 +280,6 @@
                         this.wendu=ret.data.data.wendu;
                         console.log(ret.data);
                     })
-                },
-                get:function(){
-                    axios.get('https://autumnfish.cn/api/joke/list?num=1')
-                    .then(
-                        (response)=>{
-                            //document.getElementById("joke").innerHTML=response.data.jokes[0];
-                            this.joke=response.data.jokes[0];
-                            console.log(response.data.jokes[0]);
-                        }
-                    ).catch(
-                        (err)=>{
-                            console.log(err);
-                        }
-                    )
-                },
-                post:function(){
-                    axios.post('https://autumnfish.cn/api/user/reg',
-                    {
-                        username:'aaa',
-                    }
-                    )
-                    .then(
-                        (response)=>{
-                            this.regMsg=response.data;
-                            console.log(response.data)
-                        }
-                    )
                 }
             },
         })
