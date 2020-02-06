@@ -3,9 +3,9 @@
   <entry>
     <title>Vue+Axios小练习(记事本，城市天气查询)</title>
     <url>/2020/02/06/Vue-Axios%E5%B0%8F%E7%BB%83%E4%B9%A0-%E8%AE%B0%E4%BA%8B%E6%9C%AC%EF%BC%8C%E5%9F%8E%E5%B8%82%E5%A4%A9%E6%B0%94%E6%9F%A5%E8%AF%A2/</url>
-    <content><![CDATA[<p><a href="/VueLearning/jishiben.html">&gt;记事本点这里&lt;</a></p>
-<p><a href="/VueLearning/axios_learning.html">&gt;天气查询点这里&lt;</a></p>
-]]></content>
+    <content><![CDATA[<p><a href="/jishiben.html" target="ifr">&gt;记事本点这里&lt;</a></p>
+<p><a href="/axios_learning.html" target="ifr">&gt;天气查询点这里&lt;</a></p>
+<iframe src name="ifr" width="800px" height="336px" marginwidth="0" marginheight="0" frameborder="0" margin="0" style="background:pink;border-radius:5px;"></iframe>]]></content>
       <categories>
         <category>前端技术</category>
       </categories>

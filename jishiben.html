@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>记事本</title>
+    <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+  <!-- import axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>记事本</h1>
+        <input type="text" @keyup.enter="add" ref="msg"></input>
+        <span>回车确认输入</span>
+        <ul>
+            <li v-for="(li,index) in list" @mouseenter="show(index)" 
+            @mouseleave="block"><span  v-text="index+1+'：'+li"></span>
+                <span style="color: red;cursor:pointer"
+                 v-show="isShow==index" @click="del(index)">X</span>
+            </li>
+            <em v-show="list.length>0" v-text="list.length+'条数据'"></em>
+            <button v-show="list.length>0" @click="clear">清空</button>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:['吃饭','睡觉','玩手机'],
+                isShow:-1,
+            },
+            methods: {
+                add:function(){
+                    this.list.push(this.$refs.msg.value);
+                },
+                del:function(index){
+                    this.list.splice(index,1);
+                },
+                clear:function(){
+                    this.list.splice(0,this.list.length);
+                },
+                show:function(index){
+                    this.isShow=index;
+                },
+                block:function(){
+                    this.isShow=-1;
+                }
+            },
+        })
+    </script>
+</body>
+</html>
