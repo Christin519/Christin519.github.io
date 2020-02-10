@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Mist',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="流的分类文件流(直接操作文件，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer) 字节流&#x2F;字符流：In(Out)putStream，Reader&#x2F;Writer 转换流：InputStreamReader&#x2F;OutputStreamWriter 标准输入输出流 打印流：PrintSream，PrintWriter 数据流：DataInputStream，DataOutputSt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO流">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;index.html">
+<meta property="og:site_name" content="Christin&#39;s Blog">
+<meta property="og:description" content="流的分类文件流(直接操作文件，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer) 字节流&#x2F;字符流：In(Out)putStream，Reader&#x2F;Writer 转换流：InputStreamReader&#x2F;OutputStreamWriter 标准输入输出流 打印流：PrintSream，PrintWriter 数据流：DataInputStream，DataOutputSt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fis.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fos.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fcopy.png">
+<meta property="article:published_time" content="2020-02-10T05:05:37.000Z">
+<meta property="article:modified_time" content="2020-02-10T12:57:47.447Z">
+<meta property="article:author" content="Christin">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/10/Java-IO%E6%B5%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Java IO流 | Christin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Christin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/Java-IO%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tomcat.jpg">
+      <meta itemprop="name" content="Christin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Christin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java IO流
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-10 13:05:37 / 修改时间：20:57:47" itemprop="dateCreated datePublished" datetime="2020-02-10T13:05:37+08:00">2020-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h3><p>文件流(直接操作文件，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer)</p>
+<p>字节流/字符流：In(Out)putStream，Reader/Writer</p>
+<p>转换流：InputStreamReader/OutputStreamWriter</p>
+<p>标准输入输出流</p>
+<p>打印流：PrintSream，PrintWriter</p>
+<p>数据流：DataInputStream，DataOutputStream</p>
+<p>对象流：ObjectInputStream，ObjectOutputStream   –涉及序列化/反序列化</p>
+<p>随机存取文件流：RandomAccessFile(随机意思是人为可操控，而不是电脑随机)</p>
+<a id="more"></a>
+
+<h3 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h3><h4 id="能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下"><a href="#能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下" class="headerlink" title="能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下"></a>能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造方法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">File newfile=<span class="keyword">new</span> File(<span class="string">"/testfprder/test.txt"</span>);			<span class="comment">//相对路径(文件)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">File newfile3=<span class="keyword">new</span> File(<span class="string">"/testfprder/aforder"</span>);			<span class="comment">//相对路径(目录)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">File newfile2=<span class="keyword">new</span> File(<span class="string">"/testfprder/"</span>,<span class="string">"test.txt"</span>);		<span class="comment">//父路径+文件名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取信息</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">newfile.getName()				<span class="comment">//获取文件或目录名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">newfile.getPath()				<span class="comment">//获取new的时候的路径</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">newfile.getAbsolutePath()		<span class="comment">//获取绝对路径</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">newfile.getAbsoluteFile()		<span class="comment">//返回一个用绝对路径new的File对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">newfile.getParent()				<span class="comment">//返回父级路径</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">newfile.renameTo(<span class="keyword">new</span> File())	<span class="comment">//重命名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">newfile.exists()				<span class="comment">//判断文件是否存在</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">newfile.canRead()				<span class="comment">//是否可读(对应canWrite()是否可写)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">newfile.isFile()				<span class="comment">//是否是文件(对应有isDerectory()是否是目录)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">newfile.lastModified()			<span class="comment">//最后修改事件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">newfile.length()				<span class="comment">//文件长度</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//增删查</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">newfile.createNewFile()			<span class="comment">//创建文件，需捕获异常</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">newfile.delete()				<span class="comment">//删除文件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">newfile.mkdir()					<span class="comment">//创建目录(直接mkdirs()创建多层目录)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">newfile.list()				<span class="comment">//列出所有目录下的文件/子目录(返回String[]类型)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">newfile.listFiles()				<span class="comment">//同上，返回File[]类型数组</span></span></pre></td></tr></table></figure>
+
+<h4 id="递归遍历文件目录"><a href="#递归遍历文件目录" class="headerlink" title="递归遍历文件目录"></a>递归遍历文件目录</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">listAll</span><span class="params">(File file)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(file.isFile())&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        System.out.println(file.getAbsolutePath()+<span class="string">"是文件"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(file.getAbsolutePath()+<span class="string">"是目录"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        File[] fs=file.listFiles();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(fs!=<span class="keyword">null</span>&amp;&amp;fs.length&gt;<span class="number">0</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span>(File f:fs)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">                listAll(f);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/file_listall.png" alt></p>
+<h3 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h3><h4 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h4><h5 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"testforder/test.txt"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">byte</span>[] bt=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8</span>];				<span class="comment">//每次8个字节</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> len;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span> ((len=fis.read(bt))!=-<span class="number">1</span>)&#123;		<span class="comment">//直到最后一个字节</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="keyword">new</span> String(bt,<span class="number">0</span>,len));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"len："</span>+len);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    System.out.println(<span class="string">"----------------------------"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    System.out.println(<span class="keyword">new</span> String(bt));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    fis.close();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/io_fis.png" alt></p>
+<h5 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a>OutputStream</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"testforder/good.txt"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    String str=<span class="string">"talk is cheap,show me your code"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    fos.write(str.getBytes());		<span class="comment">//写到内存</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    fos.flush();					<span class="comment">//刷新，将内存写入硬盘</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    fos.close();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/io_fos.png" alt></p>
+<h5 id="字节流复制文件"><a href="#字节流复制文件" class="headerlink" title="字节流复制文件"></a>字节流复制文件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fileCopy</span><span class="params">(String inpath,String outPath)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(inpath);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(outPath);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">byte</span>[] bt=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> len;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">while</span> ((len=fis.read(bt))!=-<span class="number">1</span>)&#123;		<span class="comment">//读取文件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            fos.write(bt,<span class="number">0</span>,len);			<span class="comment">//写入内存</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        fos.flush();						<span class="comment">//刷新</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        fos.close();						<span class="comment">//关闭流</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        fis.close();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用方法，传入参数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">fileCopy(<span class="string">"testforder/good.txt"</span>,<span class="string">"testforder/aforder/good.txt"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">fileCopy(<span class="string">"testforder/beautiful.jpg"</span>,<span class="string">"testforder/aforder/good.jpg"</span>);</span></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/io_fcopy.png" alt></p>
+<h4 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h4><p>与字节流差不多，不过针对字符，不像字节流可以操作所有类型文件(图片，压缩包，等等)</p>
+<p>FileInputStream对应FileReader，FileOutputStream对应FileWriter</p>
+<p>byte[] 字节数组对应char[] 字符数组</p>
+<p>其他都一样</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Christin 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Christin 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/" rel="prev" title="手写简易HashMap">
+      <i class="fa fa-chevron-left"></i> 手写简易HashMap
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#流的分类"><span class="nav-number">1.</span> <span class="nav-text">流的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File类"><span class="nav-number">2.</span> <span class="nav-text">File类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下"><span class="nav-number">2.1.</span> <span class="nav-text">能新建，删除，重命名文件或目录，不能访问文件本身，常用方法如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归遍历文件目录"><span class="nav-number">2.2.</span> <span class="nav-text">递归遍历文件目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流"><span class="nav-number">3.</span> <span class="nav-text">IO流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字节流"><span class="nav-number">3.1.</span> <span class="nav-text">字节流</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#InputStream"><span class="nav-number">3.1.1.</span> <span class="nav-text">InputStream</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#OutputStream"><span class="nav-number">3.1.2.</span> <span class="nav-text">OutputStream</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字节流复制文件"><span class="nav-number">3.1.3.</span> <span class="nav-text">字节流复制文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符流"><span class="nav-number">3.2.</span> <span class="nav-text">字符流</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Christin"
+      src="/images/tomcat.jpg">
+  <p class="site-author-name" itemprop="name">Christin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/christin519" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;christin519" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:czw05192011@gmail.com" title="E-Mail → mailto:czw05192011@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://ccsubia.github.io/" title="http:&#x2F;&#x2F;ccsubia.github.io" rel="noopener" target="_blank">Hu</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Christin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
