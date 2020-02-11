@@ -3,7 +3,7 @@
   <entry>
     <title>Java IO流</title>
     <url>/2020/02/10/Java-IO%E6%B5%81/</url>
-    <content><![CDATA[<h3 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h3><p>文件流(直接操作文件，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer)</p>
+    <content><![CDATA[<h3 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h3><p>文件流(基于硬盘，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer)</p>
 <p>字节流/字符流：In(Out)putStream，Reader/Writer</p>
 <p>转换流：InputStreamReader/OutputStreamWriter</p>
 <p>标准输入输出流</p>
@@ -31,6 +31,30 @@
 <p>FileInputStream对应FileReader，FileOutputStream对应FileWriter</p>
 <p>byte[] 字节数组对应char[] 字符数组</p>
 <p>其他都一样</p>
+<h4 id="缓冲流"><a href="#缓冲流" class="headerlink" title="缓冲流"></a>缓冲流</h4><p>先把数据缓冲到内存中，然后在内存中进行io操作，速度快很多。</p>
+<p>将File替换成Buffer即可，并要事先new FileInputStream()对象(输出流同理，注意flush)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造方法</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">FileInputStream fis=<span class="keyword">new</span> FileInputStream(<span class="string">"/testforder/test.txt"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">BufferInputStream bis=<span class="keyword">new</span> BufferInputStream(fis);</span></pre></td></tr><tr><td class="code"><pre><span class="line">......</span></pre></td></tr><tr><td class="code"><pre><span class="line">bis.close();</span></pre></td></tr><tr><td class="code"><pre><span class="line">fis.close();</span></pre></td></tr></table></figure>
+
+<h4 id="转换流"><a href="#转换流" class="headerlink" title="转换流"></a>转换流</h4><p>字节流与字符流互相转换，当字节流数据都是字符时，转换成字符流，提高效率</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FileInputStream fis=<span class="keyword">new</span> FileInputStream(<span class="string">"/testforder/test.txt"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">InputStreamReader isr=<span class="keyword">new</span> InputStreamReader(fis,<span class="string">"utf-8"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//接下来isr即可当Reader字符流使用，编码要与读取文件编码一致，记事本默认GBK</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">......</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//一样的操作</span></span></pre></td></tr></table></figure>
+
+<h4 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h4><p>Data替换File，构造方法与缓冲流类似，输出流输出到文件中不能直接辨认，是乱码，需要通过输入流读出来。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">readBoolean(),readInt(),readDouble()</span></pre></td></tr><tr><td class="code"><pre><span class="line">writeBoolean(),wirteInt(),writeDouble()		<span class="comment">//方法一一对应</span></span></pre></td></tr></table></figure>
+
+<h4 id="对象流"><a href="#对象流" class="headerlink" title="对象流"></a>对象流</h4><p>将对象转换成二进制进行网络传输</p>
+<p>序列化：将对象写入IO流，</p>
+<p>反序列化：从IO流中恢复成对象</p>
+<p>需要对象实现Serializable接口(或者Externalizable，用的少)</p>
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/io_serializable.png" alt></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构建对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> String name;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//序列化</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSerialize</span> <span class="params">(String path)</span> <span class="keyword">throws</span> Exception</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ObjectOutputStream oos=<span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(path));</span></pre></td></tr><tr><td class="code"><pre><span class="line">        Person p=<span class="keyword">new</span> Person(<span class="string">"jack"</span>,<span class="number">18</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"序列化："</span>+p);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        oos.writeObject(p);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        oos.flush();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        oos.close();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//反序列化</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testDeserialize</span> <span class="params">(String path)</span> <span class="keyword">throws</span> Exception</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(path));</span></pre></td></tr><tr><td class="code"><pre><span class="line">        Person p=(Person) ois.readObject();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"反序列化后："</span>+p);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ois.close();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//测试</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            testSerialize(<span class="string">"testforder/aforder/bforder/ohuo.txt"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            testDeserialize(<span class="string">"testforder/aforder/bforder/ohuo.txt"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            e.printStackTrace();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
+
+<p>运行结果：文本中</p>
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/xuliehua.png" alt></p>
+<p>控制台</p>
+<p><img src="/2020/02/10/Java-IO%E6%B5%81/fanxuliehua.png" alt></p>
+<p>注意：序列化和反序列化的类名，包名，结构必须完全一致。</p>
+<h4 id="随机存取流"><a href="#随机存取流" class="headerlink" title="随机存取流"></a>随机存取流</h4><p>省略。。。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>头发-1</p>
 ]]></content>
       <categories>
         <category>Java基础</category>
