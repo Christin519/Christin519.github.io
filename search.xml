@@ -7,6 +7,8 @@
 <p>系统：CentOS7.7</p>
 <h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>重置密码，修改主机名、实例名，设置安全组(80，443，3306等)</p>
 <p>Xshell连接服务器</p>
+<a id="more"></a>
+
 <h3 id="宝塔面板安装-开放8888端口"><a href="#宝塔面板安装-开放8888端口" class="headerlink" title="宝塔面板安装(开放8888端口)"></a>宝塔面板安装(开放8888端口)</h3><p>用来管控还是挺好的</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http:&#x2F;&#x2F;download.bt.cn&#x2F;install&#x2F;install_6.0.sh &amp;&amp; sh install.sh</span></pre></td></tr></table></figure>
 
