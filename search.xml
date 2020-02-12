@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>阿里云ECS服务器体验</title>
+    <url>/2020/02/12/%E9%98%BF%E9%87%8C%E4%BA%91ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%93%E9%AA%8C/</url>
+    <content><![CDATA[<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>配置：2核4G内存1Mbps带宽</p>
+<p>系统：CentOS7.7</p>
+<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>重置密码，修改主机名、实例名，设置安全组(80，443，3306等)</p>
+<p>Xshell连接服务器</p>
+<h3 id="宝塔面板安装-开放8888端口"><a href="#宝塔面板安装-开放8888端口" class="headerlink" title="宝塔面板安装(开放8888端口)"></a>宝塔面板安装(开放8888端口)</h3><p>用来管控还是挺好的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http:&#x2F;&#x2F;download.bt.cn&#x2F;install&#x2F;install_6.0.sh &amp;&amp; sh install.sh</span></pre></td></tr></table></figure>
+
+<p>傻瓜式选择LNMP(Linux，Nginx1.16，MySQL5.6，PHP5.6)一键安装</p>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><h3 id="安装docker-ce"><a href="#安装docker-ce" class="headerlink" title="安装docker-ce"></a>安装docker-ce</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">设置仓库</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span></pre></td></tr><tr><td class="code"><pre><span class="line">配置镜像源</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span></pre></td></tr><tr><td class="code"><pre><span class="line">安装docker-ce</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum install docker-ce docker-ce-cli containerd.io</span></pre></td></tr><tr><td class="code"><pre><span class="line">启动</span></pre></td></tr><tr><td class="code"><pre><span class="line">systemctl start docker</span></pre></td></tr><tr><td class="code"><pre><span class="line">查看版本</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker version</span></pre></td></tr></table></figure>
+
+<h3 id="1）、镜像操作"><a href="#1）、镜像操作" class="headerlink" title="1）、镜像操作"></a>1）、镜像操作</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker  search 关键字  eg：docker  search redis</td>
+<td>我们经常去docker  hub上检索镜像的详细信息，如镜像的TAG。</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull 镜像名:tag</td>
+<td>:tag是可选的，tag表示标签，多为软件的版本，默认是latest</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>查看所有本地镜像</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi image-id</td>
+<td>删除指定的本地镜像</td>
+</tr>
+</tbody></table>
+<p><a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<h3 id="2）、容器操作"><a href="#2）、容器操作" class="headerlink" title="2）、容器操作"></a>2）、容器操作</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1、搜索镜像</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker search tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">2、拉取镜像</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker pull tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">3、根据镜像启动容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker run --name mytomcat -d tomcat:latest</span></pre></td></tr><tr><td class="code"><pre><span class="line">4、docker ps  </span></pre></td></tr><tr><td class="code"><pre><span class="line">查看运行中的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">5、 停止运行中的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker stop  容器的id</span></pre></td></tr><tr><td class="code"><pre><span class="line">6、查看所有的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker ps -a</span></pre></td></tr><tr><td class="code"><pre><span class="line">7、启动容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker start 容器id</span></pre></td></tr><tr><td class="code"><pre><span class="line">8、删除一个容器</span></pre></td></tr><tr><td class="code"><pre><span class="line"> docker rm 容器id</span></pre></td></tr><tr><td class="code"><pre><span class="line">9、启动一个做了端口映射的tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker run -d -p 8888:8080 tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">-d：后台运行</span></pre></td></tr><tr><td class="code"><pre><span class="line">-p: 将主机的端口映射到容器的一个端口    主机端口:容器内部的端口</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">10、为了演示简单关闭了linux的防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">service firewalld status ；查看防火墙状态</span></pre></td></tr><tr><td class="code"><pre><span class="line">service firewalld stop：关闭防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">11、查看容器的日志</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker logs container-name/container-id</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">更多命令参看</span></pre></td></tr><tr><td class="code"><pre><span class="line">https://docs.docker.com/engine/reference/commandline/docker/</span></pre></td></tr><tr><td class="code"><pre><span class="line">可以参考每一个镜像的文档</span></pre></td></tr></table></figure>
+
+<h3 id="3）、安装MySQL示例"><a href="#3）、安装MySQL示例" class="headerlink" title="3）、安装MySQL示例"></a>3）、安装MySQL示例</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull mysql</span></pre></td></tr></table></figure>
+
+<p>错误的启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker run --name mysql01 -d mysql</span></pre></td></tr><tr><td class="code"><pre><span class="line">42f09819908bb72dd99ae19e792e0a5d03c48638421fa64cce5f8ba0f40f5846</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">mysql退出了</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker ps -a</span></pre></td></tr><tr><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                           PORTS               NAMES</span></pre></td></tr><tr><td class="code"><pre><span class="line">42f09819908b        mysql               "docker-entrypoint.sh"   34 seconds ago      Exited (1) 33 seconds ago                            mysql01</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">//错误日志</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker logs 42f09819908b</span></pre></td></tr><tr><td class="code"><pre><span class="line">error: database is uninitialized and password option is not specified </span></pre></td></tr><tr><td class="code"><pre><span class="line">  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD；这个三个参数必须指定一个</span></pre></td></tr></table></figure>
+
+<p>正确的启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=123456 -d mysql</span></pre></td></tr><tr><td class="code"><pre><span class="line">b874c56bec49fb43024b3805ab51e9097da779f2f572c22c695305dedd684c5f</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker ps</span></pre></td></tr><tr><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</span></pre></td></tr><tr><td class="code"><pre><span class="line">b874c56bec49        mysql               "docker-entrypoint.sh"   4 seconds ago       Up 3 seconds        3306/tcp            mysql01</span></pre></td></tr></table></figure>
+
+<p>做了端口映射</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker run -p 3306:3306 --name mysql02 -e MYSQL_ROOT_PASSWORD=123456 -d mysql</span></pre></td></tr><tr><td class="code"><pre><span class="line">ad10e4bc5c6a0f61cbad43898de71d366117d120e39db651844c0e73863b9434</span></pre></td></tr><tr><td class="code"><pre><span class="line">[root@localhost ~]# docker ps</span></pre></td></tr><tr><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES</span></pre></td></tr><tr><td class="code"><pre><span class="line">ad10e4bc5c6a        mysql               "docker-entrypoint.sh"   4 seconds ago       Up 2 seconds        0.0.0.0:3306-&gt;3306/tcp   mysql02</span></pre></td></tr></table></figure>
+
+<p>几个其他的高级操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name mysql03 -v &#x2F;conf&#x2F;mysql:&#x2F;etc&#x2F;mysql&#x2F;conf.d -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag</span></pre></td></tr><tr><td class="code"><pre><span class="line">把主机的&#x2F;conf&#x2F;mysql文件夹挂载到 mysqldocker容器的&#x2F;etc&#x2F;mysql&#x2F;conf.d文件夹里面</span></pre></td></tr><tr><td class="code"><pre><span class="line">改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下（&#x2F;conf&#x2F;mysql）</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">docker run --name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag --character-set-server&#x3D;utf8mb4 --collation-server&#x3D;utf8mb4_unicode_ci</span></pre></td></tr><tr><td class="code"><pre><span class="line">指定mysql的一些配置参数</span></pre></td></tr></table></figure>
+
+<h3 id="redis-in-docker"><a href="#redis-in-docker" class="headerlink" title="redis in docker"></a>redis in docker</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name 名字 -p 6379:6379 -d redis --requirepass &quot;密码&quot;</span></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>服务器相关</category>
+      </categories>
+      <tags>
+        <tag>Aliyun,docker,Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java IO流</title>
     <url>/2020/02/10/Java-IO%E6%B5%81/</url>
     <content><![CDATA[<h3 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h3><p>文件流(基于硬盘，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer)</p>
