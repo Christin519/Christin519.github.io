@@ -68,7 +68,9 @@
         <category>服务器相关</category>
       </categories>
       <tags>
-        <tag>Aliyun,docker,Linux</tag>
+        <tag>Aliyun</tag>
+        <tag>docker</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
