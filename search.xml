@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java多线程</title>
+    <url>/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="实现多线程"><a href="#实现多线程" class="headerlink" title="实现多线程"></a>实现多线程</h2><p>通过继承Thread类或者实现Runnable，Callable接口</p>
+<h3 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h3><p>构造方法：Thread()，Thread(String threadname)，</p>
+<p>​                    Thread(Runnable target)，Thread(Runnable target，String threadname)</p>
+<p>重写run()方法：包含线程运行逻辑</p>
+<p>start()方法：开启多线程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"这是run方法。。。"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            System.out.println(i+<span class="number">1</span>+<span class="string">"只狼"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    Thread tt=<span class="keyword">new</span> aThread();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    tt.start();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    System.out.println(<span class="string">"这是主程序  。。。"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(i+<span class="number">1</span>+<span class="string">"只饺子"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h3><p>重写run()方法，同上</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Thread tr=<span class="keyword">new</span> Thread(<span class="keyword">new</span> bThread());</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//Thread tr=new Thread(new bThread(),"trname");</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//加上线程名称，可以在run方法中通过Thread.cunrrentThread.getName()获取</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">tr.start();</span></pre></td></tr></table></figure>
+
+<p>实现Runnable接口可以资源共享</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">int</span> count;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"这是实现Runnable接口的run方法。。。"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            count++;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            System.out.println(Thread.currentThread().getName()+count+<span class="string">"只狗"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//主程序</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">Runnable run=<span class="keyword">new</span> bThread();</span></pre></td></tr><tr><td class="code"><pre><span class="line">Thread tr1=<span class="keyword">new</span> Thread(run,<span class="string">"线程11111："</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">tr1.start();</span></pre></td></tr><tr><td class="code"><pre><span class="line">Thread tr2=<span class="keyword">new</span> Thread(run,<span class="string">"线程22222："</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">tr2.start();</span></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_runnable.png" alt></p>
+<p>两个线程共享同一个runnable实现类的count值，各自执行，不影响对方</p>
+<h2 id="Thread类的方法"><a href="#Thread类的方法" class="headerlink" title="Thread类的方法"></a>Thread类的方法</h2><p>启动线程start()，线程逻辑run()，设置线程名setName(String name)，获取线程名getName()，返回当前线程currentThread()</p>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>阿里云ECS服务器体验</title>
     <url>/2020/02/12/%E9%98%BF%E9%87%8C%E4%BA%91ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%93%E9%AA%8C/</url>
     <content><![CDATA[<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>配置：2核4G内存1Mbps带宽</p>

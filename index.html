@@ -19,7 +19,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://yoursite.com').hostname,
+    hostname: new URL('http://notsobad.top').hostname,
     root: '/',
     scheme: 'Mist',
     version: '7.7.0',
@@ -48,13 +48,13 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Christin&#39;s Blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;index.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://notsobad.top/">
 
 
 <script id="page-configurations">
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/%E4%B8%80%E5%88%99%E9%9A%8F%E6%9C%BA%E7%AC%91%E8%AF%9D-%E6%AF%8F20s%E5%88%B7%E6%96%B0/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/04/%E4%B8%80%E5%88%99%E9%9A%8F%E6%9C%BA%E7%AC%91%E8%AF%9D-%E6%AF%8F20s%E5%88%B7%E6%96%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -279,7 +279,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/%E9%98%BF%E9%87%8C%E4%BA%91ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%93%E9%AA%8C/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tomcat.jpg">
+      <meta itemprop="name" content="Christin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Christin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Java多线程</a>
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-13 12:50:20 / 修改时间：19:06:18" itemprop="dateCreated datePublished" datetime="2020-02-13T12:50:20+08:00">2020-02-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="实现多线程"><a href="#实现多线程" class="headerlink" title="实现多线程"></a>实现多线程</h2><p>通过继承Thread类或者实现Runnable，Callable接口</p>
+<h3 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h3><p>构造方法：Thread()，Thread(String threadname)，</p>
+<p>​                    Thread(Runnable target)，Thread(Runnable target，String threadname)</p>
+<p>重写run()方法：包含线程运行逻辑</p>
+<p>start()方法：开启多线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"这是run方法。。。"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">            System.out.println(i+<span class="number">1</span>+<span class="string">"只狼"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Thread tt=<span class="keyword">new</span> aThread();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    tt.start();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    System.out.println(<span class="string">"这是主程序  。。。"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        System.out.println(i+<span class="number">1</span>+<span class="string">"只饺子"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h3><p>重写run()方法，同上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Thread tr=<span class="keyword">new</span> Thread(<span class="keyword">new</span> bThread());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//Thread tr=new Thread(new bThread(),"trname");</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//加上线程名称，可以在run方法中通过Thread.cunrrentThread.getName()获取</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">tr.start();</span></pre></td></tr></table></figure>
+
+<p>实现Runnable接口可以资源共享</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> count;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"这是实现Runnable接口的run方法。。。"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            count++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            System.out.println(Thread.currentThread().getName()+count+<span class="string">"只狗"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//主程序</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">Runnable run=<span class="keyword">new</span> bThread();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">Thread tr1=<span class="keyword">new</span> Thread(run,<span class="string">"线程11111："</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">tr1.start();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">Thread tr2=<span class="keyword">new</span> Thread(run,<span class="string">"线程22222："</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">tr2.start();</span></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_runnable.png" alt></p>
+<p>两个线程共享同一个runnable实现类的count值，各自执行，不影响对方</p>
+<h2 id="Thread类的方法"><a href="#Thread类的方法" class="headerlink" title="Thread类的方法"></a>Thread类的方法</h2><p>启动线程start()，线程逻辑run()，设置线程名setName(String name)，获取线程名getName()，返回当前线程currentThread()</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/12/%E9%98%BF%E9%87%8C%E4%BA%91ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%93%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -360,7 +449,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/Java-IO%E6%B5%81/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/10/Java-IO%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -451,7 +540,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -530,7 +619,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -614,7 +703,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/Vue-Axios%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A0-Cplayer%E6%92%AD%E6%94%BE%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/07/Vue-Axios%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A0-Cplayer%E6%92%AD%E6%94%BE%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -685,7 +774,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/Vue-Axios%E5%B0%8F%E7%BB%83%E4%B9%A0-%E8%AE%B0%E4%BA%8B%E6%9C%AC%EF%BC%8C%E5%9F%8E%E5%B8%82%E5%A4%A9%E6%B0%94%E6%9F%A5%E8%AF%A2/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/06/Vue-Axios%E5%B0%8F%E7%BB%83%E4%B9%A0-%E8%AE%B0%E4%BA%8B%E6%9C%AC%EF%BC%8C%E5%9F%8E%E5%B8%82%E5%A4%A9%E6%B0%94%E6%9F%A5%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -758,7 +847,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/Vue%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/05/Vue%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -835,7 +924,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -897,109 +986,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/07/Spring-Boot%E5%85%A5%E9%97%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/tomcat.jpg">
-      <meta itemprop="name" content="Christin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Christin's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/" class="post-title-link" itemprop="url">第一次接触Mybatis</a>
-        </h1>
-
-        <div class="post-meta">
-
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-11 12:41:08" itemprop="dateCreated datePublished" datetime="2019-12-11T12:41:08+08:00">2019-12-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-05 15:34:32" itemprop="dateModified" datetime="2020-02-05T15:34:32+08:00">2020-02-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
-                    <span itemprop="name">后端框架</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#1工程目录">1.工程目录</a></li>
-<li><a href="#2pornxml文件">2.porn.xml文件</a></li>
-<li><a href="#3mybatis-configxml全局配置文件">3.mybatis-config.xml全局配置文件</a></li>
-<li><a href="#4user类以及mysql中的user表">4.User类以及Mysql中的user表</a><ul>
-<li><a href="#user类">User类</a></li>
-<li><a href="#user表">user表</a></li>
-</ul>
-</li>
-<li><a href="#5usermapperxml文件配置">5.UserMapper.xml文件配置</a></li>
-<li><a href="#6编写测试类">6.编写测试类</a></li>
-<li><a href="#7测试结果">7.测试结果</a></li>
-<li><a href="#8感受">8.感受</a><ul>
-<li><a href="#改革尚未成功同志仍需努力">改革尚未成功，同志仍需努力。</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1091,7 +1077,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

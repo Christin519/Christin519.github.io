@@ -19,7 +19,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://yoursite.com').hostname,
+    hostname: new URL('http://notsobad.top').hostname,
     root: '/',
     scheme: 'Mist',
     version: '7.7.0',
@@ -49,22 +49,22 @@
   <meta name="description" content="一，关于哈希表(Hash Table)定义：散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。 ​        给定表H，存在函数hash(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手写简易HashMap">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;index.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
 <meta property="og:description" content="一，关于哈希表(Hash Table)定义：散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。 ​        给定表H，存在函数hash(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashtable.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashmap_jdk8.webp">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashmap_result.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashtable.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashmap_jdk8.webp">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashmap_result.png">
 <meta property="article:published_time" content="2020-02-09T05:05:42.000Z">
 <meta property="article:modified_time" content="2020-02-09T08:08:12.463Z">
 <meta property="article:author" content="Christin">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="哈希表">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashtable.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;09&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap&#x2F;hashtable.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
+<link rel="canonical" href="http://notsobad.top/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
 
 
 <script id="page-configurations">
@@ -210,7 +210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/09/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -429,7 +429,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

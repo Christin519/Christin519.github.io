@@ -19,7 +19,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://yoursite.com').hostname,
+    hostname: new URL('http://notsobad.top').hostname,
     root: '/',
     scheme: 'Mist',
     version: '7.7.0',
@@ -49,25 +49,25 @@
   <meta name="description" content="流的分类文件流(基于硬盘，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer) 字节流&#x2F;字符流：In(Out)putStream，Reader&#x2F;Writer 转换流：InputStreamReader&#x2F;OutputStreamWriter 标准输入输出流 打印流：PrintSream，PrintWriter 数据流：DataInputStream，DataOutputStre">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java IO流">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;index.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
 <meta property="og:description" content="流的分类文件流(基于硬盘，速度慢，名字里带File)，缓冲流(走内存，速度快，名字里带Buffer) 字节流&#x2F;字符流：In(Out)putStream，Reader&#x2F;Writer 转换流：InputStreamReader&#x2F;OutputStreamWriter 标准输入输出流 打印流：PrintSream，PrintWriter 数据流：DataInputStream，DataOutputStre">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fis.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fos.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fcopy.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_serializable.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;xuliehua.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;fanxuliehua.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fis.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fos.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_fcopy.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;io_serializable.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;xuliehua.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;fanxuliehua.png">
 <meta property="article:published_time" content="2020-02-10T05:05:37.000Z">
 <meta property="article:modified_time" content="2020-02-11T12:10:22.227Z">
 <meta property="article:author" content="Christin">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;10&#x2F;Java-IO%E6%B5%81&#x2F;file_listall.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/10/Java-IO%E6%B5%81/">
+<link rel="canonical" href="http://notsobad.top/2020/02/10/Java-IO%E6%B5%81/">
 
 
 <script id="page-configurations">
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/Java-IO%E6%B5%81/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/10/Java-IO%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -441,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

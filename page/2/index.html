@@ -19,7 +19,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://yoursite.com').hostname,
+    hostname: new URL('http://notsobad.top').hostname,
     root: '/',
     scheme: 'Mist',
     version: '7.7.0',
@@ -48,13 +48,13 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Christin&#39;s Blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;page&#x2F;2&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;page&#x2F;2&#x2F;index.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Christin">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/page/2/">
+<link rel="canonical" href="http://notsobad.top/page/2/">
 
 
 <script id="page-configurations">
@@ -200,7 +200,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tomcat.jpg">
+      <meta itemprop="name" content="Christin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Christin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/" class="post-title-link" itemprop="url">第一次接触Mybatis</a>
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-11 12:41:08" itemprop="dateCreated datePublished" datetime="2019-12-11T12:41:08+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-05 15:34:32" itemprop="dateModified" datetime="2020-02-05T15:34:32+08:00">2020-02-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">后端框架</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#1工程目录">1.工程目录</a></li>
+<li><a href="#2pornxml文件">2.porn.xml文件</a></li>
+<li><a href="#3mybatis-configxml全局配置文件">3.mybatis-config.xml全局配置文件</a></li>
+<li><a href="#4user类以及mysql中的user表">4.User类以及Mysql中的user表</a><ul>
+<li><a href="#user类">User类</a></li>
+<li><a href="#user表">user表</a></li>
+</ul>
+</li>
+<li><a href="#5usermapperxml文件配置">5.UserMapper.xml文件配置</a></li>
+<li><a href="#6编写测试类">6.编写测试类</a></li>
+<li><a href="#7测试结果">7.测试结果</a></li>
+<li><a href="#8感受">8.感受</a><ul>
+<li><a href="#改革尚未成功同志仍需努力">改革尚未成功，同志仍需努力。</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6Mybatis/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2019/12/09/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -277,7 +380,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2019/12/09/%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -354,7 +457,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2019/12/09/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -496,7 +599,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
