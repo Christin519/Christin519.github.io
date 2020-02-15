@@ -54,16 +54,16 @@
 <meta property="og:description" content="实现多线程通过继承Thread类或者实现Runnable，Callable接口 继承Thread类构造方法：Thread()，Thread(String threadname)， ​                    Thread(Runnable target)，Thread(Runnable target，String threadname) 重写run()方法：包含线程运行逻辑 star">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_runnable.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_life.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_priority.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_priority_2.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_yield.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_join.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_sleep.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_life.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_tongbu.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;13&#x2F;Java%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;th_tongbu2.png">
 <meta property="article:published_time" content="2020-02-13T04:50:20.000Z">
-<meta property="article:modified_time" content="2020-02-14T12:10:16.395Z">
+<meta property="article:modified_time" content="2020-02-15T14:16:43.430Z">
 <meta property="article:author" content="Christin">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -246,7 +246,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 20:10:16" itemprop="dateModified" datetime="2020-02-14T20:10:16+08:00">2020-02-14</time>
+                <time title="修改时间：2020-02-15 22:16:43" itemprop="dateModified" datetime="2020-02-15T22:16:43+08:00">2020-02-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -291,7 +291,15 @@
 <p>结果：</p>
 <p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_runnable.png" alt></p>
 <p>两个线程共享同一个runnable实现类的count值，各自执行，不影响对方</p>
-<h2 id="Thread类的方法"><a href="#Thread类的方法" class="headerlink" title="Thread类的方法"></a>Thread类的方法</h2><h3 id="线程优先级-1–10"><a href="#线程优先级-1–10" class="headerlink" title="线程优先级(1–10)"></a>线程优先级(1–10)</h3><p>MAX_PRIORITY            –10(最大)</p>
+<h2 id="线程生命周期"><a href="#线程生命周期" class="headerlink" title="线程生命周期"></a>线程生命周期</h2><p>新建：进程实例声明并创建，即new对象后</p>
+<p>就绪：进程已准备好，可以被运行，即调用start()方法后</p>
+<p>运行：线程被调度，分配好资源，即进入run()方法里</p>
+<p>阻塞：被挂起或执行输入输出操作，即run()方法临时终止了执行</p>
+<p>死亡：自然死亡：完成run()后或者抛出异常</p>
+<p>强制死亡：执行stop()方法，线程被kill，断电，CPU爆炸等即线程结束</p>
+<p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_life.png" alt></p>
+<h2 id="线程的调度"><a href="#线程的调度" class="headerlink" title="线程的调度"></a>线程的调度</h2><p>Java属于抢占式调度模型</p>
+<h3 id="线程优先级-1–10"><a href="#线程优先级-1–10" class="headerlink" title="线程优先级(1–10)"></a>线程优先级(1–10)</h3><p>MAX_PRIORITY            –10(最大)</p>
 <p>MIN_PRIORITY            –1(最小)</p>
 <p>NORM_PRIORITY        –5(默认) </p>
 <p>getPriority()：返回线程优先级</p>
@@ -299,7 +307,7 @@
 <p>注意：线程创建时继承父线程的优先级，优先级不是绝对，只是<strong>较大概率</strong>先运行优先级高的</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Runnable run=<span class="keyword">new</span> bThread();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Thread tr1=<span class="keyword">new</span> Thread(run,<span class="string">"线程11111："</span>);<span class="comment">//设置线程名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Thread tr2=<span class="keyword">new</span> Thread(run,<span class="string">"线程22222："</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">tr1.setPriority(<span class="number">2</span>);						<span class="comment">//优先级大</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">tr2.setPriority(<span class="number">1</span>);						<span class="comment">//优先级小</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">tr1.start();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">tr2.start();</span></pre></td></tr></table></figure>
 
-<p>测了很多次终于出来的一次结果：</p>
+<p>测了很多次终于出来的结果：</p>
 <table>
 <thead>
 <tr>
@@ -316,9 +324,9 @@
 <p>线程逻辑run()，</p>
 <p>设置线程名setName(String name)，</p>
 <p>获取线程名getName()，</p>
-<p>返回当前线程currentThread()，</p>
-<p>判断线程是否活者isActive()</p>
-<h4 id="yield-：static-void"><a href="#yield-：static-void" class="headerlink" title="yield()：static void"></a>yield()：static void</h4><p>线程让步，暂停当前线程，让优先级相同或更高的先执行，若没有同优先级，此方法无效。</p>
+<p>返回当前线程的引用currentThread()，</p>
+<p>判断线程是否活着isActive()</p>
+<h4 id="yield-：static-void"><a href="#yield-：static-void" class="headerlink" title="yield()：static void"></a>yield()：static void</h4><p>线程让步，让优先级相同的先执行，但让步多长时间不固定，若没同优先级，此方法无效。</p>
 <p>改造for循环：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(i==<span class="number">1</span>)&#123;			<span class="comment">//当i=1时让步给其他线程</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        Thread.yield();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    count++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    System.out.println(Thread.currentThread().getName()+count+<span class="string">"只狗"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
@@ -336,29 +344,50 @@
 
 <p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_sleep.png" alt></p>
 <p>在即将进入睡眠语句输出后，隔了3000毫秒，睡眠完毕输出，并输出时间差，验证成功。</p>
-<h2 id="线程生命周期"><a href="#线程生命周期" class="headerlink" title="线程生命周期"></a>线程生命周期</h2><p>新建：进程实例声明并创建，即new对象后</p>
-<p>就绪：进程已准备好，可以被运行，即调用start()方法后</p>
-<p>运行：线程被调度，分配好资源，即进入run()方法里</p>
-<p>阻塞：被挂起或执行输入输出操作，即run()方法临时终止了执行</p>
-<p>死亡：自然死亡：完成run()后或者抛出异常</p>
-<p>强制死亡：执行stop()方法，线程被kill，断电，CPU爆炸等即线程结束</p>
-<p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_life.png" alt></p>
-<h2 id="线程同步与死锁"><a href="#线程同步与死锁" class="headerlink" title="线程同步与死锁"></a>线程同步与死锁</h2><p>两个线程同时向一个账户取钱，余额出现负数：</p>
+<blockquote>
+<p>如果在main方法中，如果new了一个Thread对象，然后调用了.sleep方法，其实睡眠的还是主线程，因为sleep是静态方法，对象.sleep相当于是类名.sleep，没有区别。</p>
+</blockquote>
+<h4 id="interrupt"><a href="#interrupt" class="headerlink" title="interrupt()"></a>interrupt()</h4><p>依靠异常处理机制，打断休眠，抛出异常，继续运行接下来的代码</p>
+<h2 id="线程同步与死锁"><a href="#线程同步与死锁" class="headerlink" title="线程同步与死锁"></a>线程同步与死锁</h2><h3 id="同步问题-数据不唯一"><a href="#同步问题-数据不唯一" class="headerlink" title="同步问题(数据不唯一)"></a>同步问题(数据不唯一)</h3><p>两个线程同时向一个账户取钱，余额出现负数：</p>
 <p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_tongbu.png" alt></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程逻辑</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	acount.get(m);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//取钱操作</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> m)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    String tname=Thread.currentThread().getName()+<span class="string">"操作---"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    System.out.println(tname+<span class="string">"账户原有："</span>+money+<span class="string">"，提款："</span>+m);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(money&gt;=m)&#123;		<span class="comment">//余额充足</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"要取钱拉"</span>);	<span class="comment">//这四条纯粹为了加大出错的概率</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"取钱拉"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"钱拉"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"拉"</span>);	</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        money-=m;		<span class="comment">//余额减少</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        System.out.println(tname+<span class="string">"提款成功，账户余额："</span>+money);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        System.out.println(tname+<span class="string">"账户余额不足。。。"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    System.out.println(tname+<span class="string">"结束-----------------------"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <p>原因：当两个线程同时对一个账户进行取钱操作时，线程1判断余额充足后，继续接下来的操作，在还没到对余额进行修改时，线程2可能在此时判断余额充足，这就导致了两个线程同时完成了余额减少操作，金额变为负数，而这是不允许出现的。</p>
 <p>解决办法：在一个线程执行对数据的操作时，其他线程不能执行。</p>
-<p>在取钱操作get()方法上加上synchronized关键字</p>
-<p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_tongbu2.png" alt></p>
-<p>加上关键字后，发现微信执行完之后，支付宝才能执行，此时就达到了目的。</p>
-<p><strong>注意：synchronized关键字锁的不是方法，而是对象。</strong></p>
+<h4 id="1，synchronized代码块-推荐使用"><a href="#1，synchronized代码块-推荐使用" class="headerlink" title="1，synchronized代码块(推荐使用)"></a>1，synchronized代码块(推荐使用)</h4><p>将需要同步的代码放在synchronized(这里是加锁的对象){这里是代码}代码块中</p>
+<blockquote>
+<p>这样这一段代码只有一个线程能执行，当t1执行到这段代码时，就会去找该对象的对象锁，如果找到，就进入代码块中执行，执行完后，归还对象锁。如果在t2在执行过程中也遇到了这段代码，也去找对象锁，发现该对象锁被t1持有，只能等待t1归还对象锁。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">synchronized</span>(被锁对象)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//取钱</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h4 id="2，synchronized关键字"><a href="#2，synchronized关键字" class="headerlink" title="2，synchronized关键字"></a>2，synchronized关键字</h4><p>在取钱操作get()方法上加上synchronized关键字</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">//取钱</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><strong>synchronized关键字锁的不是方法，而是对象。</strong></p>
 <p>比如新加一个同样的get2()方法，然后改造run()方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">"wechat"</span>.equals(Thread.currentThread().getName()))&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    acount.get2(m);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    acount.get(m);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <p>当线程为wechat时执行get2()，线程为alipay时执行get()，发现其中一个还是只能等待另一个线程结束才能执行。</p>
 <p> <strong>当两个线程操作的对象不一样时，就锁不了。</strong></p>
-<p><strong>而当在静态方法上加锁时，对于所有的对象都是同一个锁。</strong></p>
+<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p><img src="/2020/02/13/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/th_tongbu2.png" alt></p>
+<p>加上关键字后，发现微信执行完之后，支付宝才能执行，此时就达到了目的。</p>
+<blockquote>
+<p>注意：在静态方法上加锁时，对于所有的对象都是同一个锁，这个锁就称为类锁，即该类所有对象都是同一把锁。当执行到带synchronized关键字的静态方法时，会去找类锁，哪怕操作不同对象时也要等待拥有类锁的线程执行完。</p>
+</blockquote>
+<h3 id="死锁问题-永远等待"><a href="#死锁问题-永远等待" class="headerlink" title="死锁问题(永远等待)"></a>死锁问题(永远等待)</h3><p>著名的哲学家吃饭问题，n个人围成圆桌，总共有n根筷子，与哲学家插空放置。哲学家想要吃饭，必须拿两根筷子，当每个哲学家拿起左边的筷子时，再去拿右边的筷子，此时筷子已经被右边的哲学家拿走，此时陷入死锁状态。</p>
+<p>线程T1先拿到o1的对象锁，然后想接着拿o2的对象锁，而线程T2相反。由于两个线程同步执行，所以会出现，线程T1拿到了o1的锁，同时线程T2拿到了o2的锁，形成了互相等待对方执行完成的局面，而双方都不可能执行完成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T1</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Object o1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    Object o2;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">T1</span><span class="params">(Object o1,Object o2)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.o1=o1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.o2=o2;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">synchronized</span> (o1)&#123;		<span class="comment">//线程T1先拿到o1对象锁</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">"锁住了o1"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">1000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;			<span class="comment">//短暂延时，引起问题</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">synchronized</span> (o2)&#123;	<span class="comment">//接着拿o2对象锁</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>线程T2与线程T1类似，只是先拿o2再拿o1。</p>
+<h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p>所有的用户线程(以上都是)结束生命周期，守护线程才会结束，例如Java中的垃圾回收器。</p>
+<p>守护线程一般都是无限执行的。</p>
+<p>setDaemon(true)方法可以将用户线程设置为守护线程</p>
+<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><p>Timer：每隔一段固定时间执行任务</p>
+<p>schedule(TimeTask task，Date firstTime，long perlod)：指定定时任务</p>
+<p>task：任务，firstTime：起始时间，perlod，间隔时间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">TimeTask</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        System.out.pritln(<span class="string">"..."</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-1</p>
 
     </div>
 
@@ -460,7 +489,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现多线程"><span class="nav-number">1.</span> <span class="nav-text">实现多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继承Thread类"><span class="nav-number">1.1.</span> <span class="nav-text">继承Thread类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Runnable接口"><span class="nav-number">1.2.</span> <span class="nav-text">实现Runnable接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread类的方法"><span class="nav-number">2.</span> <span class="nav-text">Thread类的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优先级-1–10"><span class="nav-number">2.1.</span> <span class="nav-text">线程优先级(1–10)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">2.2.</span> <span class="nav-text">常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yield-：static-void"><span class="nav-number">2.2.1.</span> <span class="nav-text">yield()：static void</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">2.2.2.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-long-mills-：static-void"><span class="nav-number">2.2.3.</span> <span class="nav-text">sleep(long mills)：static void</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程生命周期"><span class="nav-number">3.</span> <span class="nav-text">线程生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程同步与死锁"><span class="nav-number">4.</span> <span class="nav-text">线程同步与死锁</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现多线程"><span class="nav-number">1.</span> <span class="nav-text">实现多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继承Thread类"><span class="nav-number">1.1.</span> <span class="nav-text">继承Thread类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Runnable接口"><span class="nav-number">1.2.</span> <span class="nav-text">实现Runnable接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程生命周期"><span class="nav-number">2.</span> <span class="nav-text">线程生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的调度"><span class="nav-number">3.</span> <span class="nav-text">线程的调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优先级-1–10"><span class="nav-number">3.1.</span> <span class="nav-text">线程优先级(1–10)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">3.2.</span> <span class="nav-text">常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yield-：static-void"><span class="nav-number">3.2.1.</span> <span class="nav-text">yield()：static void</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">3.2.2.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-long-mills-：static-void"><span class="nav-number">3.2.3.</span> <span class="nav-text">sleep(long mills)：static void</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupt"><span class="nav-number">3.2.4.</span> <span class="nav-text">interrupt()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程同步与死锁"><span class="nav-number">4.</span> <span class="nav-text">线程同步与死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步问题-数据不唯一"><span class="nav-number">4.1.</span> <span class="nav-text">同步问题(数据不唯一)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1，synchronized代码块-推荐使用"><span class="nav-number">4.1.1.</span> <span class="nav-text">1，synchronized代码块(推荐使用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2，synchronized关键字"><span class="nav-number">4.1.2.</span> <span class="nav-text">2，synchronized关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试结果"><span class="nav-number">4.1.3.</span> <span class="nav-text">测试结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁问题-永远等待"><span class="nav-number">4.2.</span> <span class="nav-text">死锁问题(永远等待)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护线程"><span class="nav-number">5.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器"><span class="nav-number">6.</span> <span class="nav-text">定时器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
