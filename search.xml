@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring春之再相会</title>
+    <url>/2020/02/18/Spring%E6%98%A5%E4%B9%8B%E5%86%8D%E7%9B%B8%E4%BC%9A/</url>
+    <content><![CDATA[<h2 id="基于注解的IOC"><a href="#基于注解的IOC" class="headerlink" title="基于注解的IOC"></a>基于注解的IOC</h2><blockquote>
+<p>前提：加上名称空间(xmlns:context)，开启注解扫描</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.czw"</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="ioc常用注解"><a href="#ioc常用注解" class="headerlink" title="ioc常用注解"></a>ioc常用注解</h3><h4 id="用于创建对象"><a href="#用于创建对象" class="headerlink" title="用于创建对象"></a>用于创建对象</h4><p>和bean标签功能一样</p>
+<p>@component(value=”xxx”)：将对象存入spring容器，value属性表示bean的id，不写时默认类名(首字母小写)，只有一个value属性，可以不写value=。</p>
+<p>子集：@Controller：表现层，@Service：业务层，@Repository：持久层</p>
+<h4 id="用于注入数据"><a href="#用于注入数据" class="headerlink" title="用于注入数据"></a>用于注入数据</h4><p>和property标签功能一样</p>
+<p>@Autowired：自动按照类型注入，根据变量类型找容器中对应的bean对象，如果是接口，则可以找实现类，只要容器中有唯一的bean对象和要注入的对象类型匹配，就可以注入。出现位置可以是变量，也可以是方法上。</p>
+<blockquote>
+<p>如果有多个bean满足类型时，先按照类型筛选，然后根据变量名确定，如果没有相同变量名，则报错。</p>
+</blockquote>
+<p>使用注解注入时，set方法就可以不用了。</p>
+<p>@Qualifier：按照类型注入的基础上，再按照名称注入，在给类成员注入时，不能单独使用，在给方法参数注入时可以。</p>
+<p>@Resource：直接按照bean的id注入，不依靠Autowired，name属性对应id。</p>
+<blockquote>
+<p>以上都只能注入其他bean类型，无法注入基本类型/String类型，集合类型只能通过xml。</p>
+</blockquote>
+<p>@Value：用于注入基本类型/String，value属性用于指定数值，可以使用SpEL表达式( ${表达式} )</p>
+<h4 id="用于改变作用范围"><a href="#用于改变作用范围" class="headerlink" title="用于改变作用范围"></a>用于改变作用范围</h4><p>和scope属性功能一样</p>
+<p>@Scope：用于指定bean作用范围，value属性表示取值，常用：单例(默认)/多例</p>
+<h4 id="和生命周期相关"><a href="#和生命周期相关" class="headerlink" title="和生命周期相关"></a>和生命周期相关</h4><p>和init-method/destroy-method属性功能一样</p>
+<p>@PreDestroy：指定销毁方法</p>
+<p>@PostConstruct：指定初始化方法</p>
+<h2 id="IOC案列"><a href="#IOC案列" class="headerlink" title="IOC案列"></a>IOC案列</h2><p>使用xml和注解实现单表CRUD</p>
+<p>死在mybatis整合。。。</p>
+<p>去学mybatis去了</p>
+<h2 id="使用纯注解实现"><a href="#使用纯注解实现" class="headerlink" title="使用纯注解实现"></a>使用纯注解实现</h2><p>暂无</p>
+<h2 id="Spring和Junit整合"><a href="#Spring和Junit整合" class="headerlink" title="Spring和Junit整合"></a>Spring和Junit整合</h2><p>暂无</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-2</p>
+]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring春之初体验</title>
     <url>/2020/02/17/Spring%E6%98%A5%E4%B9%8B%E5%88%9D%E4%BD%93%E9%AA%8C/</url>
     <content><![CDATA[<h2 id="解耦"><a href="#解耦" class="headerlink" title="解耦"></a>解耦</h2><p>工厂模式+反射+配置文件</p>
@@ -481,8 +526,8 @@
       </tags>
   </entry>
   <entry>
-    <title>手写简易LinkedLsit</title>
-    <url>/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/</url>
+    <title>手写简易LinkedList</title>
+    <url>/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/</url>
     <content><![CDATA[<p>​        LinkedList属于List接口的实现类之一，与ArrayList不同之处是采用的存储结构不同，ArrayList的数据结构为线性表，而LinkedList数据结构是链表。链表数据结构的特点是每个元素分配的空间不必连续、插入和删除元素时速度非常快、但访问元素的速度较慢。LinkedList是一个双向链表, 当数据量很大或者操作很频繁的情况下，添加和删除元素时具有比ArrayList更好的性能。但在元素的查询和修改方面要弱于ArrayList。LinkedList类每个结点用内部类Node表示，LinkedList通过first和last引用分别指向链表的第一个和最后一个元素，当链表为空时，first和last都为NULL值。</p>
 <a id="more"></a>
 
@@ -515,10 +560,10 @@
 <td>last的next=&gt;first，first的next=&gt;last</td>
 </tr>
 </tbody></table>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/single_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/single_for_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/double_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/double_for_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/single_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/single_for_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/double_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/double_for_list.webp" alt></p>
 <h3 id="二，关于LinkedList"><a href="#二，关于LinkedList" class="headerlink" title="二，关于LinkedList"></a>二，关于LinkedList</h3><p>LinkedList 是一个继承于AbstractSequentialList的<strong>双向循环链表</strong>。它也可以被当作堆栈、队列或双端队列进行操作。<br>LinkedList 实现 List 接口，能对它进行<strong>队列</strong>操作。<br>LinkedList 实现 Deque 接口，即能将LinkedList当作<strong>双端队列</strong>使用。<br>LinkedList 实现了Cloneable接口，即覆盖了函数clone()，能<strong>克隆</strong>。<br>LinkedList 实现java.io.Serializable接口，这意味着LinkedList支持<strong>序列化</strong>，能通过序列化去传输。<br>LinkedList 是<strong>非同步</strong>的。</p>
 <h3 id="三，实现的功能"><a href="#三，实现的功能" class="headerlink" title="三，实现的功能"></a>三，实现的功能</h3><p>​        –尾部添加，索引查找，索引插入，索引修改，索引删除</p>
 <h3 id="四，构建节点"><a href="#四，构建节点" class="headerlink" title="四，构建节点"></a>四，构建节点</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt;</span>&#123;		<span class="comment">//作为LinkedListC的内部类</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    Node&lt;E&gt; prev;	<span class="comment">//头节点</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    E data;			<span class="comment">//数据</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    Node&lt;E&gt; next;	<span class="comment">//尾节点</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(E e)</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.data=e;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Node&lt;E&gt; prev, E data, Node&lt;E&gt; next)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.prev = prev;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.data = data;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">this</span>.next = next;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
@@ -540,7 +585,7 @@
 <h3 id="七，测试过程"><a href="#七，测试过程" class="headerlink" title="七，测试过程"></a>七，测试过程</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        LinkedListC&lt;Integer&gt; li= <span class="keyword">new</span> LinkedListC&lt;&gt;();</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(li.toString());<span class="comment">//检验toString方法，此时为空链表</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        li.add(<span class="number">1</span>);				<span class="comment">//添加一个1</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行add方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">        li.set(<span class="number">0</span>,<span class="number">9</span>);			<span class="comment">//将刚刚的1修改为9</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行set方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行get方法后："</span>+li.get(<span class="number">0</span>));	<span class="comment">//获取第一个</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        li.remove(<span class="number">0</span>);			<span class="comment">//移除那个1</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行remove方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">        li.insert(<span class="number">0</span>,<span class="number">5</span>);		<span class="comment">//在那个1的地方插入5(由于已经被移除，所以不存在0索引将抛出异常)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行insert方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/test_result.png" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/test_result.png" alt></p>
 <h3 id="八，总结"><a href="#八，总结" class="headerlink" title="八，总结"></a>八，总结</h3><p>头发-1</p>
 ]]></content>
       <categories>

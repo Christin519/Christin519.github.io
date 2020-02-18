@@ -48,25 +48,25 @@
 
   <meta name="description" content="​        LinkedList属于List接口的实现类之一，与ArrayList不同之处是采用的存储结构不同，ArrayList的数据结构为线性表，而LinkedList数据结构是链表。链表数据结构的特点是每个元素分配的空间不必连续、插入和删除元素时速度非常快、但访问元素的速度较慢。LinkedList是一个双向链表, 当数据量很大或者操作很频繁的情况下，添加和删除元素时具有比ArrayL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="手写简易LinkedLsit">
-<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;index.html">
+<meta property="og:title" content="手写简易LinkedList">
+<meta property="og:url" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;index.html">
 <meta property="og:site_name" content="Christin&#39;s Blog">
 <meta property="og:description" content="​        LinkedList属于List接口的实现类之一，与ArrayList不同之处是采用的存储结构不同，ArrayList的数据结构为线性表，而LinkedList数据结构是链表。链表数据结构的特点是每个元素分配的空间不必连续、插入和删除元素时速度非常快、但访问元素的速度较慢。LinkedList是一个双向链表, 当数据量很大或者操作很频繁的情况下，添加和删除元素时具有比ArrayL">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;single_list.webp">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;single_for_list.webp">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;double_list.webp">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;double_for_list.webp">
-<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;test_result.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;single_list.webp">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;single_for_list.webp">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;double_list.webp">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;double_for_list.webp">
+<meta property="og:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;test_result.png">
 <meta property="article:published_time" content="2020-02-08T09:15:08.000Z">
-<meta property="article:modified_time" content="2020-02-09T08:05:10.138Z">
+<meta property="article:modified_time" content="2020-02-18T06:55:41.735Z">
 <meta property="article:author" content="Christin">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="链表">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit&#x2F;single_list.webp">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;notsobad.top&#x2F;2020&#x2F;02&#x2F;08&#x2F;%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList&#x2F;single_list.webp">
 
-<link rel="canonical" href="http://notsobad.top/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/">
+<link rel="canonical" href="http://notsobad.top/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/">
 
 
 <script id="page-configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>手写简易LinkedLsit | Christin's Blog</title>
+  <title>手写简易LinkedList | Christin's Blog</title>
   
 
 
@@ -212,7 +212,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/">
+    <link itemprop="mainEntityOfPage" href="http://notsobad.top/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tomcat.jpg">
@@ -225,7 +225,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          手写简易LinkedLsit
+          手写简易LinkedList
         </h1>
 
         <div class="post-meta">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-09 16:05:10" itemprop="dateModified" datetime="2020-02-09T16:05:10+08:00">2020-02-09</time>
+                <time title="修改时间：2020-02-18 14:55:41" itemprop="dateModified" datetime="2020-02-18T14:55:41+08:00">2020-02-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,10 +300,10 @@
 <td>last的next=&gt;first，first的next=&gt;last</td>
 </tr>
 </tbody></table>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/single_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/single_for_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/double_list.webp" alt></p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/double_for_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/single_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/single_for_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/double_list.webp" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/double_for_list.webp" alt></p>
 <h3 id="二，关于LinkedList"><a href="#二，关于LinkedList" class="headerlink" title="二，关于LinkedList"></a>二，关于LinkedList</h3><p>LinkedList 是一个继承于AbstractSequentialList的<strong>双向循环链表</strong>。它也可以被当作堆栈、队列或双端队列进行操作。<br>LinkedList 实现 List 接口，能对它进行<strong>队列</strong>操作。<br>LinkedList 实现 Deque 接口，即能将LinkedList当作<strong>双端队列</strong>使用。<br>LinkedList 实现了Cloneable接口，即覆盖了函数clone()，能<strong>克隆</strong>。<br>LinkedList 实现java.io.Serializable接口，这意味着LinkedList支持<strong>序列化</strong>，能通过序列化去传输。<br>LinkedList 是<strong>非同步</strong>的。</p>
 <h3 id="三，实现的功能"><a href="#三，实现的功能" class="headerlink" title="三，实现的功能"></a>三，实现的功能</h3><p>​        –尾部添加，索引查找，索引插入，索引修改，索引删除</p>
 <h3 id="四，构建节点"><a href="#四，构建节点" class="headerlink" title="四，构建节点"></a>四，构建节点</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt;</span>&#123;		<span class="comment">//作为LinkedListC的内部类</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Node&lt;E&gt; prev;	<span class="comment">//头节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    E data;			<span class="comment">//数据</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    Node&lt;E&gt; next;	<span class="comment">//尾节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(E e)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.data=e;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Node&lt;E&gt; prev, E data, Node&lt;E&gt; next)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.prev = prev;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.data = data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.next = next;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
@@ -325,7 +325,7 @@
 <h3 id="七，测试过程"><a href="#七，测试过程" class="headerlink" title="七，测试过程"></a>七，测试过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">        LinkedListC&lt;Integer&gt; li= <span class="keyword">new</span> LinkedListC&lt;&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        System.out.println(li.toString());<span class="comment">//检验toString方法，此时为空链表</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        li.add(<span class="number">1</span>);				<span class="comment">//添加一个1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行add方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        li.set(<span class="number">0</span>,<span class="number">9</span>);			<span class="comment">//将刚刚的1修改为9</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行set方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行get方法后："</span>+li.get(<span class="number">0</span>));	<span class="comment">//获取第一个</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        li.remove(<span class="number">0</span>);			<span class="comment">//移除那个1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行remove方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        li.insert(<span class="number">0</span>,<span class="number">5</span>);		<span class="comment">//在那个1的地方插入5(由于已经被移除，所以不存在0索引将抛出异常)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"执行insert方法后："</span>+li.toString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedLsit/test_result.png" alt></p>
+<p><img src="/2020/02/08/%E6%89%8B%E5%86%99%E7%AE%80%E6%98%93LinkedList/test_result.png" alt></p>
 <h3 id="八，总结"><a href="#八，总结" class="headerlink" title="八，总结"></a>八，总结</h3><p>头发-1</p>
 
     </div>
@@ -448,7 +448,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
