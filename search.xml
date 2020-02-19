@@ -104,9 +104,9 @@
         <category>后端框架</category>
       </categories>
       <tags>
-        <tag>SSM</tag>
-        <tag>Spring</tag>
         <tag>MyBatis</tag>
+        <tag>Spring</tag>
+        <tag>SSM</tag>
       </tags>
   </entry>
   <entry>
@@ -189,7 +189,6 @@
         <category>后端框架</category>
       </categories>
       <tags>
-        <tag>SSM</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -276,7 +275,6 @@
         <category>后端框架</category>
       </categories>
       <tags>
-        <tag>SSM</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -797,8 +795,8 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>Axios</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -849,7 +847,6 @@
         <category>后端框架</category>
       </categories>
       <tags>
-        <tag>SSM</tag>
         <tag>MyBatis</tag>
       </tags>
   </entry>
