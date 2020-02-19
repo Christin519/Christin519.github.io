@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring春之又邂逅</title>
+    <url>/2020/02/19/Spring%E6%98%A5%E4%B9%8B%E5%8F%88%E9%82%82%E9%80%85/</url>
+    <content><![CDATA[<h2 id="配置类代替applicationContext"><a href="#配置类代替applicationContext" class="headerlink" title="配置类代替applicationContext"></a>配置类代替applicationContext</h2><h3 id="用到的注解"><a href="#用到的注解" class="headerlink" title="用到的注解"></a>用到的注解</h3><p>@Configuration：指定当前类为配置类。</p>
+<p>注意：当配置类作为AnnotationConfigApplicationContext创建的参数时，该注解可以不加，不作为参数的时候要加上。</p>
+<p>@ComponentScan：指定要扫描的包。</p>
+<p>注意：扫描包时，先看类上有没有注解，没有就不会继续扫描该类。</p>
+<p>@Bean：标注在方法上，表示将方法返回值存入IoC容器，name属性指定beanid，默认值为方法名。</p>
+<p>使用注解配置方法时，如果方法有参数，spring会去容器中查找是否有可用bean对象，原理和Autowired一样。</p>
+<p>@Scope：单例/多例</p>
+<p>@Import(xxx.class)：导入其他配置类</p>
+<p>@PropertySource：指定properties文件位置</p>
+<a id="more"></a>
+
+<h3 id="新建配置类SpringConfiguration"><a href="#新建配置类SpringConfiguration" class="headerlink" title="新建配置类SpringConfiguration"></a>新建配置类SpringConfiguration</h3><p>在类上标明@Configuration注解表示这是一个配置类</p>
+<p>同时标明@ComponentScan(“com.czw”)指定要扫描的包，等同于</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.czw"</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h3 id="数据源配置"><a href="#数据源配置" class="headerlink" title="数据源配置"></a>数据源配置</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.druid.pool.DruidDataSource"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;driverClassName&#125;"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;url&#125;"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;username&#125;"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;password&#125;"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>这一段在配置类中的体现为</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name=<span class="string">"dataSource"</span>)<span class="comment">//给bean对象命名</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">createDDS</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    DruidDataSource dds=<span class="keyword">new</span> DruidDataSource();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    dds.setDriverClassName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    dds.setUrl(<span class="string">"jdbc:mysql://localhost:3306/learningssm?serverTimezone=UTC"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    dds.setUsername(<span class="string">"root"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    dds.setPassword(<span class="string">"root"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> dds;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>new一个DataSource实现类，DruidDataSource的父类DruidAbstractDataSource实现了这一接口。set方法对应了property标签，所以用set方法赋值，然后返回，返回值将作为bean对象注入IoC容器。</p>
+<h3 id="SqlSessionFactoryBean"><a href="#SqlSessionFactoryBean" class="headerlink" title="SqlSessionFactoryBean"></a>SqlSessionFactoryBean</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactoryBean"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis-config.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:mapper/*.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>同样使用刚刚的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name=<span class="string">"sqlSessionFactoryBean"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> SqlSessionFactoryBean <span class="title">createSSFB</span><span class="params">(DataSource dataSource)</span> <span class="keyword">throws</span> Exception</span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    SqlSessionFactoryBean ssfb=<span class="keyword">new</span> SqlSessionFactoryBean();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ssfb.setDataSource(dataSource);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    Resource[] mapper=ac.getResources(<span class="string">"classpath:mapper/*.xml"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    Resource mybatis=ac.getResource(<span class="string">"classpath:mybatis-config.xml"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ssfb.setConfigLocation(mybatis);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    ssfb.setMapperLocations(mapper);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> ssfb;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>在这里要注意的是，这里有一个参数dataSource，spring会在IoC容器中找对应的bean，就是刚刚配的dataSource，然后ConfigLocation需要一个Resource类型的参数，而MapperLocations需要一个Resources[]类型的参数，这里先获取IoC容器，调用其中的getResource和getResources方法获取，get方法的参数对应property标签的value，即类路径。</p>
+<h3 id="接口实现"><a href="#接口实现" class="headerlink" title="接口实现"></a>接口实现</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basePackage"</span> <span class="attr">value</span>=<span class="string">"com.czw.mapper"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>同上，不过介绍</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> MapperScannerConfigurer <span class="title">createMSC</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    MapperScannerConfigurer msc=<span class="keyword">new</span> MapperScannerConfigurer();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    msc.setBasePackage(<span class="string">"com.czw.mapper"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> msc;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="最后的替换"><a href="#最后的替换" class="headerlink" title="最后的替换"></a>最后的替换</h3><p>xml配置文件使用的是ClassPathXmlApplicationContext来实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span></pre></td></tr></table></figure>
+
+<p>配置类需要使用AnnotationConfigApplicationContext，参数为配置类.class</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ApplicationContext ac=<span class="keyword">new</span> AnnotationConfigApplicationContext(SpringConfiguration<span class="class">.<span class="keyword">class</span>)</span>;</span></pre></td></tr></table></figure>
+
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>单独拿出数据库连接的参数，将参数用键值对形式保存至xxx.properties文件，在配置类上添加@PropertySource(“classpath:xxx.properties”)，然后添加几个变量分别用@value(“${key}”)绑定好，然后就可以用变量替换方法里的字符串。</p>
+<blockquote>
+<p>我试了，取出来为null，GG</p>
+</blockquote>
+<h2 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h2><p><img src="/2020/02/19/Spring%E6%98%A5%E4%B9%8B%E5%8F%88%E9%82%82%E9%80%85/junit.png" alt></p>
+<p>导入spring-test</p>
+<p>使用junit的@Runwith注解让spring接管test</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner<span class="class">.<span class="keyword">class</span>)</span></span></pre></td></tr></table></figure>
+
+<p>使用@ContextConfiguration注解告知spring的IoC创建是xml还是注解</p>
+<p>loactions指定xml文件位置，classes指定配置类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration</span>(classes = SpringConfiguration<span class="class">.<span class="keyword">class</span>)</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="class">@<span class="title">ContextConfiguration</span>(<span class="title">locations</span> </span>= <span class="string">"classpath:applicationContext.xml"</span>)</span></pre></td></tr></table></figure>
+
+<p>然后就可以用@Autowired注入了</p>
+<blockquote>
+<p>注意：要求Junit版本为4.12以上，而且貌似junit5里面@Runwith换成@ExtendWith(StoryExtension.class)</p>
+</blockquote>
+<h2 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h2><p>头发-1</p>
+]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring整合MyBatis</title>
     <url>/2020/02/19/Spring%E6%95%B4%E5%90%88MyBatis/</url>
     <content><![CDATA[<h2 id="血与泪的教训"><a href="#血与泪的教训" class="headerlink" title="血与泪的教训"></a>血与泪的教训</h2><p><b style="color:red">之前少导了个依赖</b>        <b style="color:blue">spring-orm</b></p>
