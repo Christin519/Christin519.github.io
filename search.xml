@@ -5,6 +5,8 @@
     <url>/2020/02/19/Spring%E6%98%A5%E4%B9%8B%E5%8F%88%E9%82%82%E9%80%85/</url>
     <content><![CDATA[<h2 id="配置类代替applicationContext"><a href="#配置类代替applicationContext" class="headerlink" title="配置类代替applicationContext"></a>配置类代替applicationContext</h2><h3 id="用到的注解"><a href="#用到的注解" class="headerlink" title="用到的注解"></a>用到的注解</h3><p>@Configuration：指定当前类为配置类。</p>
 <p>注意：当配置类作为AnnotationConfigApplicationContext创建的参数时，该注解可以不加，不作为参数的时候要加上。</p>
+<a id="more"></a>
+
 <p>@ComponentScan：指定要扫描的包。</p>
 <p>注意：扫描包时，先看类上有没有注解，没有就不会继续扫描该类。</p>
 <p>@Bean：标注在方法上，表示将方法返回值存入IoC容器，name属性指定beanid，默认值为方法名。</p>
@@ -12,8 +14,6 @@
 <p>@Scope：单例/多例</p>
 <p>@Import(xxx.class)：导入其他配置类</p>
 <p>@PropertySource：指定properties文件位置</p>
-<a id="more"></a>
-
 <h3 id="新建配置类SpringConfiguration"><a href="#新建配置类SpringConfiguration" class="headerlink" title="新建配置类SpringConfiguration"></a>新建配置类SpringConfiguration</h3><p>在类上标明@Configuration注解表示这是一个配置类</p>
 <p>同时标明@ComponentScan(“com.czw”)指定要扫描的包，等同于</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.czw"</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span></pre></td></tr></table></figure>
