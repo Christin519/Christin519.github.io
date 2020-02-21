@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring春之初性本善</title>
+    <url>/2020/02/21/Spring%E6%98%A5%E4%B9%8B%E5%88%9D%E6%80%A7%E6%9C%AC%E5%96%84/</url>
+    <content><![CDATA[<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用MyBatis操作数据库</p>
+<p>准备好两个对象：</p>
+<p>账户(Account)：id，name，money(账户余额)</p>
+<p>图书(Book)：id，bookName，price，stock(库存)</p>
+<a id="more"></a>
+
+<p>几个方法： </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//账户余额减少</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spendMoney</span><span class="params">(@Param(<span class="string">"accountName"</span>)</span> String accountName, @<span class="title">Param</span><span class="params">(<span class="string">"qian"</span>)</span><span class="keyword">int</span> qian)</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//通过书名找到书本对象</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function">Book <span class="title">getBookByName</span><span class="params">(String bookName)</span></span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//更新书本库存</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateBook</span><span class="params">(Book book)</span></span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//业务层（两个参数，账户名+书名）</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkout</span><span class="params">(String accountName,String bookName)</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">	Book abook=bookMapper.getBookByName(bookName);</span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="comment">//得到要买的书</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	bookMapper.updateBook(abook);</span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="comment">//书本减少库存</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	accountMapper.spendMoney(accountName,abook.getPrice());</span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="comment">//账户余额减少</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：MyBatis使用多参数操作数据库是，要在参数前加上@Param注解，例如这个花钱方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spendMoney</span><span class="params">(@Param(<span class="string">"accountName"</span>)</span> String accountName, @<span class="title">Param</span><span class="params">(<span class="string">"qian"</span>)</span><span class="keyword">int</span> qian)</span>;</span></pre></td></tr></table></figure>
+</blockquote>
+<p>测试顺利，环境搭建完成</p>
+<h2 id="案列分析"><a href="#案列分析" class="headerlink" title="案列分析"></a>案列分析</h2><p>这个过程分了两个操作完成，减少库存和减少余额，但是如果中间发生了一些差错时，库存减少了，余额确没减少，这样商家就亏了，所以要把它们弄成一个整体，引入事务控制。</p>
+<h2 id="声明式事务"><a href="#声明式事务" class="headerlink" title="声明式事务"></a>声明式事务</h2><h3 id="事务概念"><a href="#事务概念" class="headerlink" title="事务概念"></a>事务概念</h3><p>一组逻辑紧密关联的数据库操作合成的整体。</p>
+<p>比如买书时，账户扣钱和书本减少库存，转账时一方扣钱另一方加钱。两者必须是一起的。</p>
+<h3 id="四个关键属性"><a href="#四个关键属性" class="headerlink" title="四个关键属性"></a>四个关键属性</h3><p><strong>原子性</strong>（不可再分，要么都执行，要么都不执行），</p>
+<p><strong>一致性</strong>（所有数据都处于满足业务规则的一致性状态，只能由一个一致的状态到另一个一致的状态，一旦某个操作失败就回滚到没执行前的状态），</p>
+<p><strong>隔离性</strong>（多个事务并发执行不会互相干扰），</p>
+<p><strong>持久性</strong>（对数据的修改会永久保存）。</p>
+<h3 id="原生编程式事务"><a href="#原生编程式事务" class="headerlink" title="原生编程式事务"></a>原生编程式事务</h3><p><img src="/2020/02/21/Spring%E6%98%A5%E4%B9%8B%E5%88%9D%E6%80%A7%E6%9C%AC%E5%96%84/yuansheng.png" alt></p>
+<h3 id="Spring事务控制"><a href="#Spring事务控制" class="headerlink" title="Spring事务控制"></a>Spring事务控制</h3><p>只需要告诉Spring哪个方法是事务方法，Spring就会自动进行事务控制。</p>
+<p>根据框架不同使用不同的管理器，MyBatis使用DataSourceTransactionManager</p>
+<p><strong>在这之前，由于这是基于切面的，所以要导入切面相关依赖。</strong></p>
+<h4 id="配置事务管理器"><a href="#配置事务管理器" class="headerlink" title="配置事务管理器"></a>配置事务管理器</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="开启基于注解的事务控制模式"><a href="#开启基于注解的事务控制模式" class="headerlink" title="开启基于注解的事务控制模式"></a>开启基于注解的事务控制模式</h4><p>导入tx名称空间，在这里又学到了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">xmlns:tx="http://www.springframework.org/schema/tx"</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--加了这一句后，还要在xsi:schemaLocation加上同一句和/spring-xxx.xsd--&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">http://www.springframework.org/schema/tx</span></pre></td></tr><tr><td class="code"><pre><span class="line">http://www.springframework.org/schema/tx/spring-tx.xsd</span></pre></td></tr></table></figure>
+
+<p>这里的属性与刚刚的id对应</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span><span class="tag">&lt;/<span class="name">tx:annotation-driven</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="给事务方法加注解"><a href="#给事务方法加注解" class="headerlink" title="给事务方法加注解"></a>给事务方法加注解</h4><p>用@Transactional注解</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>先弄一个产生异常的语句加载两个数据库操作中间。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkout</span><span class="params">(String accountName,String bookName)</span></span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    Book abook=bookMapper.getBookByName(bookName);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//得到要买的书</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    bookMapper.updateBook(abook);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//书本减少库存</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">int</span> x=<span class="number">5</span>/<span class="number">0</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//造成异常</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    accountMapper.spendMoney(accountName,abook.getPrice());</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//账户余额减少</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    System.out.println(<span class="string">"结账完成"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>没加注解时，运行抛出异常，发现库存减少了，账户余额并没有减少</p>
+<p>加了注解后，同样抛出异常，但是库存也没减少，余额也没减少，很成功。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-1</p>
+]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring春之虐我千百遍</title>
     <url>/2020/02/19/Spring%E6%98%A5%E4%B9%8B%E8%99%90%E6%88%91%E5%8D%83%E7%99%BE%E9%81%8D/</url>
     <content><![CDATA[<h2 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h2><p>当需要为一个程序添加日志记录时，比如要记录下面方法的输入输出。</p>
@@ -955,7 +1006,7 @@
       </tags>
   </entry>
   <entry>
-    <title>第一次接触Mybatis</title>
+    <title>第一次接触MyBatis</title>
     <url>/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6MyBatis/</url>
     <content><![CDATA[<h2 id="工程目录"><a href="#工程目录" class="headerlink" title="工程目录"></a>工程目录</h2><h2 id><a href="#" class="headerlink" title></a><img src="/2019/12/11/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6MyBatis/%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95.png" alt="工程目录"></h2><a id="more"></a>
 
