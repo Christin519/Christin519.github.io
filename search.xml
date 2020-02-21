@@ -28,7 +28,8 @@
 <h3 id="Spring事务控制"><a href="#Spring事务控制" class="headerlink" title="Spring事务控制"></a>Spring事务控制</h3><p>只需要告诉Spring哪个方法是事务方法，Spring就会自动进行事务控制。</p>
 <p>根据框架不同使用不同的管理器，MyBatis使用DataSourceTransactionManager</p>
 <p><strong>在这之前，由于这是基于切面的，所以要导入切面相关依赖。</strong></p>
-<h4 id="配置事务管理器"><a href="#配置事务管理器" class="headerlink" title="配置事务管理器"></a>配置事务管理器</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+<h4 id="配置事务管理器"><a href="#配置事务管理器" class="headerlink" title="配置事务管理器"></a>配置事务管理器</h4><p>让它控制住数据源</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
 
 <h4 id="开启基于注解的事务控制模式"><a href="#开启基于注解的事务控制模式" class="headerlink" title="开启基于注解的事务控制模式"></a>开启基于注解的事务控制模式</h4><p>导入tx名称空间，在这里又学到了</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">xmlns:tx="http://www.springframework.org/schema/tx"</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--加了这一句后，还要在xsi:schemaLocation加上同一句和/spring-xxx.xsd--&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">http://www.springframework.org/schema/tx</span></pre></td></tr><tr><td class="code"><pre><span class="line">http://www.springframework.org/schema/tx/spring-tx.xsd</span></pre></td></tr></table></figure>
@@ -42,6 +43,40 @@
 
 <p>没加注解时，运行抛出异常，发现库存减少了，账户余额并没有减少</p>
 <p>加了注解后，同样抛出异常，但是库存也没减少，余额也没减少，很成功。</p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><h3 id="注解属性解析"><a href="#注解属性解析" class="headerlink" title="注解属性解析"></a>注解属性解析</h3><p><strong>readOnly(boolean)</strong>：设置事务为只读事务，可以进行事务优化，如果操作都是只读数据库，调成true可以省去一些操作，比如加锁，加快查询速度。默认false</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(readOnly=<span class="keyword">true</span>)<span class="comment">//该事务只能对数据库进行读取操作</span></span></pre></td></tr></table></figure>
+
+
+
+<p><strong>timeout(int)</strong>：超时自动终止并回滚，以秒为单位</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(timeout=<span class="number">3</span>)<span class="comment">//如果3秒内不能执行完就GG</span></span></pre></td></tr></table></figure>
+
+<blockquote>
+<p>运行时异常默认都回滚，比如数学运算异常(数字除以0)，编译时异常默认不会滚，比如IO异常，读取文件不到。如果在完成数据库操作后发生编译时异常，数据操作已经执行了。</p>
+</blockquote>
+<p><strong>noRollbackFor(Class[])</strong>：指定哪些异常事务可以不回滚，可以让原本回滚的异常不再回滚。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(noRollbackFor=&#123;NullPointerExceptioin<span class="class">.<span class="keyword">class</span>,<span class="title">xxx</span>.<span class="title">class</span>&#125;)</span></span></pre></td></tr></table></figure>
+
+<p><strong>noRollbackForClassName(String[])</strong>：上述异常的String类型全类名</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(noRollbackForClassName=&#123;<span class="string">"java.lang.xxxException"</span>,<span class="string">"xxx"</span>&#125;)</span></pre></td></tr></table></figure>
+
+<p><strong>rollbackFor(Class[])</strong>：指定哪些异常需要回滚，让不回滚的异常回滚，用法与上面相反</p>
+<p><strong>rollbackForClassName(String[])</strong>：上述异常的String类型全类名</p>
+<p><strong>isolation(Isolation)</strong>：调整事务隔离级别</p>
+<p>几个概念：</p>
+<blockquote>
+<p>脏读：事务A将20改为30，事务B读取到30，事务A回滚，此时30这个数据就是脏数据</p>
+<p>不可重复读：事务A读取数据20，事务B修改为30，事务A再读取到了30，两次不一致</p>
+<p>幻读：事务A读取到信息10条，事务B插入了10条，事务A再读成了20条，信息多了</p>
+</blockquote>
+<p>隔离级别：不同级别应对不同现象</p>
+<blockquote>
+<p>读未提交：允许事务B读取事务A未提交的数据，—以上都可能产生</p>
+<p>读以提交：要求事务B只能读取事务A以提交的数据，—避免脏读，但产生另外两种</p>
+<p>可重复读：在读取数据期间，不可修改数据，—避免不可重复读和脏读(实际上MySql这个级别能避免幻读)</p>
+<p>串行化：变成单线程，啥都能避免，—但没啥用了，事务排队一万年</p>
+</blockquote>
+<p><strong>propagation(Propagation)</strong>：事务传播行为</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-1</p>
 ]]></content>
       <categories>
