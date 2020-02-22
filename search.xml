@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MyBatis买拜体斯</title>
+    <url>/2020/02/22/MyBatis%E4%B9%B0%E6%8B%9C%E4%BD%93%E6%96%AF/</url>
+    <content><![CDATA[<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>Employee对象与employee表（id int，name String，gender int，email String）</p>
+<p>IEmpMapper接口和EmpMapper.xml文件</p>
+<p>mybatis-config.xml配置文件和JUnit4.13-rc-2测试</p>
+<h2 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h2><h3 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h3><p>SqlSessionFactory：SqlSession的工厂，负责创建SqlSession对象</p>
+<p>为了方便，定义一个SqlSessionFactory变量，用JUnit的@Before注解标注一个初始化方法，就不用每次都手动创建了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">SqlSessionFactory sqlSessionFactory;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@Before</span><span class="comment">//通过这个方法拿到从配置好的xml文件中拿到SqlSessionFactory</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getSqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    String resource=<span class="string">"Mybatis-config.xml"</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    InputStream in=Resources.getResourceAsStream(resource);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    sqlSessionFactory= <span class="keyword">new</span> SqlSessionFactoryBuilder().build(in);</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>SqlSessionFactory的openSession()方法：获取和数据库的一次会话，相当于getConnection()拿到连接，返回一个SqlSession对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">SqlSession ss=sqlSessionFactory.openSession();</span></pre></td></tr></table></figure>
+
+<p>SqlSession：Sql会话，代表和数据库的一次会话</p>
+<h3 id="获取接口实现"><a href="#获取接口实现" class="headerlink" title="获取接口实现"></a>获取接口实现</h3><p>SqlSession的getMapper(xxx.class)方法：拿到接口的实现</p>
+<p>接下来就可以调用方法了，测试结果完美</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IEmpMapper em=ss.getMapper(IEmpMapper<span class="class">.<span class="keyword">class</span>)</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">Employee emp=em.getEmpById(<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">System.out.println(emp);</span></pre></td></tr></table></figure>
+
+<p>注意：要记得关闭流</p>
+<h3 id="提交问题"><a href="#提交问题" class="headerlink" title="提交问题"></a>提交问题</h3><p>有时候增删改可能遇到没有提交的问题，可以在调用openSession()方法的时候传一个参数true，就会变成自动提交。或者在最后手动调用ss.commit()提交</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-1</p>
+]]></content>
+      <categories>
+        <category>后端框架</category>
+      </categories>
+      <tags>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring春之初性本善</title>
     <url>/2020/02/21/Spring%E6%98%A5%E4%B9%8B%E5%88%9D%E6%80%A7%E6%9C%AC%E5%96%84/</url>
     <content><![CDATA[<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用MyBatis操作数据库</p>
