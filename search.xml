@@ -16,12 +16,85 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">SqlSession ss=sqlSessionFactory.openSession();</span></pre></td></tr></table></figure>
 
 <p>SqlSession：Sql会话，代表和数据库的一次会话</p>
-<h3 id="获取接口实现"><a href="#获取接口实现" class="headerlink" title="获取接口实现"></a>获取接口实现</h3><p>SqlSession的getMapper(xxx.class)方法：拿到接口的实现</p>
+<h3 id="获取接口实现"><a href="#获取接口实现" class="headerlink" title="获取接口实现"></a>获取接口实现</h3><p>SqlSession的getMapper(xxx.class)方法：拿到接口的实现，这个实现是一个MyBatis创建的代理对象</p>
 <p>接下来就可以调用方法了，测试结果完美</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IEmpMapper em=ss.getMapper(IEmpMapper<span class="class">.<span class="keyword">class</span>)</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">Employee emp=em.getEmpById(<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">System.out.println(emp);</span></pre></td></tr></table></figure>
 
 <p>注意：要记得关闭流</p>
 <h3 id="提交问题"><a href="#提交问题" class="headerlink" title="提交问题"></a>提交问题</h3><p>有时候增删改可能遇到没有提交的问题，可以在调用openSession()方法的时候传一个参数true，就会变成自动提交。或者在最后手动调用ss.commit()提交</p>
+<h2 id="全局配置文件"><a href="#全局配置文件" class="headerlink" title="全局配置文件"></a>全局配置文件</h2><p>各个子标签先后顺序一定不能乱。</p>
+<h3 id="properties标签"><a href="#properties标签" class="headerlink" title="properties标签"></a>properties标签</h3><p>引入外部配置文件，resource属性表示从类路径下引用，url属性表示从磁盘或者网络路径。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"database.properties"</span>/&gt;</span></span></pre></td></tr></table></figure>
+
+<h3 id="settings标签-重要"><a href="#settings标签-重要" class="headerlink" title="settings标签(重要)"></a>settings标签(重要)</h3><p>对MyBatis的一些设置，可以调整MyBatis运行时的行为。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">&lt;!--     开启驼峰命名与下划线自定映射   --&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"mapUnderscoreToCamelCass"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>对象如果有一个属性是empName，对应的表是emp_name，可以通过这个对应。</p>
+<p>还有很多配置参见官方文档<a href="https://mybatis.org/mybatis-3/zh/configuration.html" target="_blank" rel="noopener">https://mybatis.org/mybatis-3/zh/configuration.html</a></p>
+<h3 id="typeAliases标签"><a href="#typeAliases标签" class="headerlink" title="typeAliases标签"></a>typeAliases标签</h3><p>typeAlias子标签：为常用的类型起别名，默认是类名，不区分大小写，可以用alias属性自定义别名</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"com.study.bean.Employee"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>起了别名后，再mapper映射文件中就可以用别名代替全类名。</p>
+<p>或者可以用package标签，批量起别名，默认类名</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.study.bean"</span>/&gt;</span></span></pre></td></tr></table></figure>
+
+<p>如果要在这个基础上自定义别名，就可以在类上用@Alias注解起别名</p>
+<blockquote>
+<p>MyBatis已经为很多类型内置了别名</p>
+</blockquote>
+<h3 id="typeHandlers标签"><a href="#typeHandlers标签" class="headerlink" title="typeHandlers标签"></a>typeHandlers标签</h3><p>类型处理器：以合适的形式将java属性类型和数据库类型相转换，比如String—varchar</p>
+<p>通过这个标签，可以自定义类型处理器，了解即可</p>
+<h3 id="objectFactory标签"><a href="#objectFactory标签" class="headerlink" title="objectFactory标签"></a>objectFactory标签</h3><p>对象工厂，了解即可</p>
+<h3 id="plugins插件"><a href="#plugins插件" class="headerlink" title="plugins插件"></a>plugins插件</h3><p><img src="/2020/02/22/MyBatis%E4%B9%B0%E6%8B%9C%E4%BD%93%E6%96%AF/plugins.png" alt></p>
+<h3 id="environments标签"><a href="#environments标签" class="headerlink" title="environments标签"></a>environments标签</h3><p>配置环境，里面的每一个environment子标签表示一个环境，通过default属性指定。</p>
+<p>每一个environment都需要一个事务管理器transactionManager和一个数据源dataSource，type属性可以有UNPOOLED/POOLED/JNDI,也可以自定义，实现dataSource接口即可。</p>
+<p>事务管理和数据源一般都用Spring管理，了解即可。</p>
+<h3 id="databaseIdProvider标签"><a href="#databaseIdProvider标签" class="headerlink" title="databaseIdProvider标签"></a>databaseIdProvider标签</h3><p>用来考虑数据库一致性的。因为MySQL和Oracle的SQL语句有些不一样</p>
+<p>其中的type属性是固定的DB_VENDOR</p>
+<p>里面的property子标签的name属性是数据库标识(MySQL/Oracle/…)，value是别名</p>
+<p>可以将之前写的比如select语句重写一份，加上databaseId属性，值为数据库别名，当数据库为mysql时，执行mysql的那一句，为oracle时，执行oracle的那一句，都没有时，默认执行没写这个属性的那句。</p>
+<h3 id="mappers标签-重要"><a href="#mappers标签-重要" class="headerlink" title="mappers标签(重要)"></a>mappers标签(重要)</h3><p>注册写好的SQL映射文件</p>
+<p>里面的mapper标签的三种属性：class，resource，url。</p>
+<p>resource：类路径，url：磁盘/网络路径。</p>
+<p>class：接口全类名(XML文件要和接口同目录并且名字一样，这就很不爽)</p>
+<p><strong>可以用注解版MyBatis</strong>：不写配置文件，直接在接口方法上标注@Select等注解，在里面写SQL语句，然后扫描即可。不过有点耦合，并且不利于写复杂SQL语句。所以简单语句标注解，复杂写XML。</p>
+<p><strong>批量注册</strong>：package标签，name属性写包名，就可以批量注册那个包下的了。这样只有注解版才能注册成功，要想XML配置文件也成功，可以在resource文件夹下创建和接口同名的包，把XML文件放进去，表面上不在一起，但在编译时，java和resource会合并，就到一起去了。</p>
+<blockquote>
+<p>使用包扫描时，接口和XML文件同名</p>
+</blockquote>
+<h2 id="SQL映射文件"><a href="#SQL映射文件" class="headerlink" title="SQL映射文件"></a>SQL映射文件</h2><h3 id="可用标签"><a href="#可用标签" class="headerlink" title="可用标签"></a>可用标签</h3><h4 id="select-update-insert-delete"><a href="#select-update-insert-delete" class="headerlink" title="select/update/insert/delete"></a>select/update/insert/delete</h4><p>属性</p>
+<p><img src="/2020/02/22/MyBatis%E4%B9%B0%E6%8B%9C%E4%BD%93%E6%96%AF/updateinsertdelete.png" alt></p>
+<p>获取自增主键封装到对象</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertEmp"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    insert into employee(name,gender,email) values (#&#123;name&#125;,#&#123;gender&#125;,#&#123;email&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>当数据库不支持自增主键时，使用selectKy子标签，先执行一个SQL查到id+1，再赋值</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span> <span class="attr">resultType</span>=<span class="string">"Integer"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    select max(id)+1 from employee</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="parameterMap"><a href="#parameterMap" class="headerlink" title="parameterMap"></a>parameterMap</h4><p>原本是复杂参数映射，废弃了</p>
+<h4 id="resultMap"><a href="#resultMap" class="headerlink" title="resultMap"></a>resultMap</h4><p>结果映射</p>
+<h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><p>抽取可重用SQL</p>
+<h4 id="cache-cache-ref"><a href="#cache-cache-ref" class="headerlink" title="cache/cache-ref"></a>cache/cache-ref</h4><p>缓存相关</p>
+<h3 id="传参分析"><a href="#传参分析" class="headerlink" title="传参分析"></a>传参分析</h3><h4 id="单参数"><a href="#单参数" class="headerlink" title="单参数"></a>单参数</h4><p>如果是基本类型，取值#{}里随便写都行，它就取你传入的那个。</p>
+<h4 id="多参数"><a href="#多参数" class="headerlink" title="多参数"></a>多参数</h4><p>取值#{}里写对了都不行，它不认识。因为MyBatis会将参数自动封装在一个map中，Key是参数的索引，value是参数值。觉得不爽可以自定义key，在接口方法用@Param(“id”)注解标在参数前面，这样就可以用id表示参数了。</p>
+<p>Map</p>
+<p>将多个参数作为value装入map传进去也是可以的，#{}里用map的key取到value就行</p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>取值直接用#{属性名}就能取到了。</p>
+<p>注意：#{}里还可以添加别的东西，比如jdbcType等等，一般最多就写个jdbcType，遇到传的是null时，mysql知道，但oracle不知道null是什么类型，这时候指定一下就行。</p>
+<h3 id="取值方式"><a href="#取值方式" class="headerlink" title="取值方式"></a>取值方式</h3><p><strong>#{}：</strong>使用的是参数预编译的方式，是后面设置进去的，不会出现SQL注入。</p>
+<p><strong>${}：</strong>直接拼在SQL语句，高危。</p>
+<p>SQL语句有些位置是不支持预编译的，如果表名也想用动态的，那就只能通过${}取到，还有order by等等。</p>
+<h3 id="返回类型"><a href="#返回类型" class="headerlink" title="返回类型"></a>返回类型</h3><h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><p>返回类型写集合里元素类型，MyBatis会自动封装成对象添加进List。</p>
+<h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><p>如果是查询单条记录，则会把字段名做Key，值做value</p>
+<p>如果是多条数据，则key是主键，value是封装好的对象</p>
+<p>要使用@MapKey(“id”)注解，作为封装好的map的key，返回类型写元素类型</p>
+<h3 id="自动封装"><a href="#自动封装" class="headerlink" title="自动封装"></a>自动封装</h3><h4 id="默认封装"><a href="#默认封装" class="headerlink" title="默认封装"></a>默认封装</h4><p>列名和属性名一一对应(不区分大小写)</p>
+<p>驼峰命名法与下划线对应(empName–emp_name)</p>
+<p>都不对应，sql语句起别名对应属性名</p>
+<h4 id="自定义结果集"><a href="#自定义结果集" class="headerlink" title="自定义结果集"></a>自定义结果集</h4><p>resultMap标签</p>
+<p>type属性指定为哪个bean对象自定义封装规则</p>
+<p>id子标签：指定主键列对应规则，result子标签，指定普通列对应规则</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"xxx.Employee"</span> <span class="attr">id</span>=<span class="string">"myEmpMap"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">colume</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="comment">&lt;!--colume指定为哪一列配置规则，property指定哪个属性对应这个列--&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">result</span> <span class="attr">colume</span>=<span class="string">"cName"</span> <span class="attr">property</span>=<span class="string">"name"</span>/&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--用resultMap指定id就可以实现自定义封装--&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">resultMap</span>=<span class="string">"myEmpMap"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	...</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></pre></td></tr></table></figure>
+
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>头发-1</p>
 ]]></content>
       <categories>
