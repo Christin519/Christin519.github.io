@@ -3,7 +3,10 @@
   <entry>
     <title>LeetCode简单题记录</title>
     <url>/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67.二进制求和"></a>67.二进制求和</h2><p>题目：</p>
+    <content><![CDATA[<p>用来记录一些leetcode刷题总结</p>
+<a id="more"></a>
+
+<h2 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67.二进制求和"></a>67.二进制求和</h2><p>题目：</p>
 <p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/E:%5CHexo%5Csource_posts%5CLeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95%5C67.png" alt></p>
 <p>思路：</p>
 <p>​        1，转十进制计算再转回二进制，Integer,Long,BigInteger都有大小限制，而字符串可以是无穷长的，遂取消该做法。</p>
@@ -61,7 +64,10 @@
   <entry>
     <title>基本排序</title>
     <url>/2020/05/02/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>两层嵌套循环，每次会通过两两比较交换位置来选出最大的一个数放在最后面，之后的遍历就不会遍历到最大值，所以外层循环控制遍历元素数量，里层循环判断大小，交换位置。</p>
+    <content><![CDATA[<p>记录一些常用排序算法</p>
+<a id="more"></a>
+
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>两层嵌套循环，每次会通过两两比较交换位置来选出最大的一个数放在最后面，之后的遍历就不会遍历到最大值，所以外层循环控制遍历元素数量，里层循环判断大小，交换位置。</p>
 <p>比如：</p>
 <table>
 <thead>
