@@ -1,13 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS7环境配置记录</title>
+    <url>/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h2><p>这里用虚拟机完成，云服务器大体上也差不多，少了网络配置，有了公网IP，且需要开放要使用的端口</p>
+<p>软件：VBox</p>
+<p>版本：CentOS 7.8 2003</p>
+<p>内存：2GB</p>
+<p>磁盘空间：40GB</p>
+<p>网络：桥接网卡</p>
+<a id="more"></a>
+
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><p>原装情况下：</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/ip_old.png" alt></p>
+<p>需要为虚拟机创建静态IP连通网络</p>
+<p>修改 /etc/sysconfig/network-scripts目录下的ifcfg-enxxx文件，其中enxxx每个人都可能不一样</p>
+<p>进行如下修改：</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/ipcfg.png" alt></p>
+<p>改完之后执行重启命令即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl restart network.service</span></pre></td></tr></table></figure>
+
+<p>可以ping一下宿主机和外网测试一下</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/ping.png" alt></p>
+<blockquote>
+<p>CentOS8 的命令不一样，建议用CentOS 7</p>
+</blockquote>
+<h2 id="Docker配置"><a href="#Docker配置" class="headerlink" title="Docker配置"></a>Docker配置</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1-安装"></a>1-安装</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">设置仓库</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">配置镜像源</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">安装docker-ce</span></pre></td></tr><tr><td class="code"><pre><span class="line">yum install docker-ce docker-ce-cli containerd.io</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">启动</span></pre></td></tr><tr><td class="code"><pre><span class="line">systemctl start docker</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">查看版本</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker version</span></pre></td></tr></table></figure>
+
+<h3 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2-常用命令"></a>2-常用命令</h3><h4 id="1）镜像操作"><a href="#1）镜像操作" class="headerlink" title="1）镜像操作"></a>1）镜像操作</h4><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker  search 关键字  eg：docker  search redis</td>
+<td>我们经常去docker  hub上检索镜像的详细信息，如镜像的TAG。</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull 镜像名:tag</td>
+<td>:tag是可选的，tag表示标签，多为软件的版本，默认是latest</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>查看所有本地镜像</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi image-id</td>
+<td>删除指定的本地镜像</td>
+</tr>
+</tbody></table>
+<p><a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<h4 id="2）容器操作"><a href="#2）容器操作" class="headerlink" title="2）容器操作"></a>2）容器操作</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、搜索镜像</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker search tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">2、拉取镜像</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker pull tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">3、根据镜像启动容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker run --name mytomcat -d tomcat:latest</span></pre></td></tr><tr><td class="code"><pre><span class="line">4、查看运行中的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker ps  </span></pre></td></tr><tr><td class="code"><pre><span class="line">5、 停止运行中的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker stop  容器的id</span></pre></td></tr><tr><td class="code"><pre><span class="line">6、查看所有的容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker ps -a</span></pre></td></tr><tr><td class="code"><pre><span class="line">7、启动容器</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker start 容器id</span></pre></td></tr><tr><td class="code"><pre><span class="line">8、删除一个容器</span></pre></td></tr><tr><td class="code"><pre><span class="line"> docker rm 容器id</span></pre></td></tr><tr><td class="code"><pre><span class="line">9、启动一个做了端口映射的tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker run -d -p 8888:8080 tomcat</span></pre></td></tr><tr><td class="code"><pre><span class="line">-d：后台运行</span></pre></td></tr><tr><td class="code"><pre><span class="line">-p: 将主机的端口映射到容器的一个端口    主机端口:容器内部的端口</span></pre></td></tr><tr><td class="code"><pre><span class="line">10、为了演示简单关闭了linux的防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">service firewalld status ；查看防火墙状态</span></pre></td></tr><tr><td class="code"><pre><span class="line">service firewalld stop：关闭防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">11、查看容器的日志</span></pre></td></tr><tr><td class="code"><pre><span class="line">docker logs container-name&#x2F;container-id</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">更多命令参看</span></pre></td></tr><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;reference&#x2F;commandline&#x2F;docker&#x2F;</span></pre></td></tr><tr><td class="code"><pre><span class="line">可以参考每一个镜像的文档</span></pre></td></tr></table></figure>
+
+<h3 id="3-配置镜像加速"><a href="#3-配置镜像加速" class="headerlink" title="3-配置镜像加速"></a>3-配置镜像加速</h3><p>登录自己的阿里云，找到容器镜像服务，找到镜像加速器，复制下面的代码执行</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/speed.png" alt></p>
+<p>使用docker info命令发现下面有一个Registry Mirrors:<a href="http://xxxxx.mirror.aliyuncs.com/就OK了" target="_blank" rel="noopener">http://xxxxx.mirror.aliyuncs.com/就OK了</a></p>
+<h3 id="4-示例-MySQL"><a href="#4-示例-MySQL" class="headerlink" title="4-示例(MySQL)"></a>4-示例(MySQL)</h3><h4 id="1、search"><a href="#1、search" class="headerlink" title="1、search"></a>1、search</h4><p>docker search mysql</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/search.png" alt></p>
+<h4 id="2、pull"><a href="#2、pull" class="headerlink" title="2、pull"></a>2、pull</h4><p>docker pull mysql</p>
+<blockquote>
+<p>注意：这里的mysql代表的是上图的name</p>
+</blockquote>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/pull.png" alt></p>
+<h4 id="3、run"><a href="#3、run" class="headerlink" title="3、run"></a>3、run</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3306:3306 --name alimysql -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql</span></pre></td></tr></table></figure>
+
+<p>-p 3306:3306            端口映射</p>
+<p>–name alimysql        命名</p>
+<p>-e MYSQL_ROOT_PASSWORD=123456        设置密码</p>
+<p>-d                 后台启动</p>
+<p>mysql          容器名</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/run.png" alt></p>
+<p>docker ps查看，这样就OK了</p>
+<h2 id="Redis配置"><a href="#Redis配置" class="headerlink" title="Redis配置"></a>Redis配置</h2><h3 id="1-安装-1"><a href="#1-安装-1" class="headerlink" title="1-安装"></a>1-安装</h3><p>在<a href="https://redis.io/" target="_blank" rel="noopener">官网</a>下载redis-6.0.6.tar.gz使用ftp工具传到某一个目录下，比如/home/redis</p>
+<p>cd进入到压缩包所在目录进行解压</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zvxf redis-6.0.6.tar.gz</span></pre></td></tr></table></figure>
+
+<p>先升级gcc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install centos-release-scl</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">scl enable devtoolset-9 bash</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">echo &quot;source &#x2F;opt&#x2F;rh&#x2F;devtoolset-9&#x2F;enable&quot; &gt;&gt; &#x2F;etc&#x2F;profile</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">gcc -v</span></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/gcc.png" alt></p>
+<p>进入redis-6.0.6目录执行make命令编译安装</p>
+<p>切换到/usr/local/bin/目录执行./redis-server命令启动</p>
+<p><img src="/2020/07/22/CentOS7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/success.png" alt></p>
+<p>这样就装好了</p>
+<h3 id="2-配置"><a href="#2-配置" class="headerlink" title="2-配置"></a>2-配置</h3><p>进入配置文件(redis-6.0.6目录下的redis.conf)进行如下修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bind 0.0.0.0</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">port 6380			#端口</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">daemonize yes</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">logfile &quot;&#x2F;home&#x2F;redis&#x2F;redis_log.log&quot;		#日志</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">requirepass 20110519		#密码</span></pre></td></tr></table></figure>
+
+<p>关掉redis，执行如下命令重新启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;redis-server &#x2F;home&#x2F;redis&#x2F;redis-6.0.6&#x2F;redis.conf</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">如果是在根目录下则</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;redis-server &#x2F;home&#x2F;redis&#x2F;redis-6.0.6&#x2F;redis.conf</span></pre></td></tr></table></figure>
+
+<p>查看redis是否正常运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aux | grep redis</span></pre></td></tr></table></figure>
+
+<p>关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">查看防火墙状态</span></pre></td></tr><tr><td class="code"><pre><span class="line">systemctl status firewalld.service</span></pre></td></tr><tr><td class="code"><pre><span class="line">	active（running）表示开启</span></pre></td></tr><tr><td class="code"><pre><span class="line">	inactive (dead)表示关闭</span></pre></td></tr><tr><td class="code"><pre><span class="line">关闭防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">systemctl firewalld.service</span></pre></td></tr><tr><td class="code"><pre><span class="line">永久关闭防火墙</span></pre></td></tr><tr><td class="code"><pre><span class="line">systemctl disable firewalld.service</span></pre></td></tr></table></figure>
+
+<h3 id="3-连接"><a href="#3-连接" class="headerlink" title="3-连接"></a>3-连接</h3><p>本人暂时使用redis desktop manager工具连接(网上一大堆)，一顿操作之后就连上了</p>
+<h3 id="4-redis-in-docker"><a href="#4-redis-in-docker" class="headerlink" title="4-redis in docker"></a>4-redis in docker</h3><p>search–pull–run一键三连</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name myredis -p 6379:6379 --requirepass &quot;20110519&quot; -d redis</span></pre></td></tr></table></figure>
+
+<h2 id="其他常用软件或环境配置"><a href="#其他常用软件或环境配置" class="headerlink" title="其他常用软件或环境配置"></a>其他常用软件或环境配置</h2><p>暂时不会</p>
+]]></content>
+      <tags>
+        <tag>CentOS7</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode简单题记录</title>
     <url>/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>用来记录一些leetcode刷题总结</p>
 <a id="more"></a>
 
 <h2 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67.二进制求和"></a>67.二进制求和</h2><p>题目：</p>
-<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/E:%5CHexo%5Csource_posts%5CLeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95%5C67.png" alt></p>
+<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/67.png" alt></p>
 <p>思路：</p>
 <p>​        1，转十进制计算再转回二进制，Integer,Long,BigInteger都有大小限制，而字符串可以是无穷长的，遂取消该做法。</p>
 <p>​        2，二进制计算情况较少，无非就是0+0，0+1/1+0，1+1和上一位的进位，所以用if-else来判断所有情况，通过while循环来遍历每一位。首先将两个字符串长度修改成一致，把短的那个前面加上一堆零，方便计算（这个一开始没想到，惭愧）。然后通过设置一个进位，对所有可能情况进行if-else判断（菜的真实）来一位一位的计算结果，最终返回一个计算完所有位之后的完整字符串。</p>
@@ -15,7 +128,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">addBinary</span><span class="params">(String a, String b)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        String result=<span class="string">""</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(a.length()&gt;b.length())&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">int</span> addLength=(a.length()-b.length());</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;addLength;i++)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                b=<span class="string">"0"</span>+b;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a.length()&lt;b.length())&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">int</span> addLength=(b.length()-a.length());</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;addLength;i++)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                a=<span class="string">"0"</span>+a;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        Boolean flag=<span class="keyword">true</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        Boolean jinwei=<span class="keyword">false</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">while</span> (flag)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">if</span>(!a.substring(a.length() - <span class="number">1</span>, a.length()).equals(b.substring(b.length() - <span class="number">1</span>, b.length())))&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">if</span>(jinwei)&#123;result=<span class="string">"0"</span>+result;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">else</span> &#123;result=<span class="string">"1"</span>+result;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                a=a.substring(<span class="number">0</span>, a.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">                b=b.substring(<span class="number">0</span>, b.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a.substring(a.length() - <span class="number">1</span>, a.length()).equals(b.substring(b.length() - <span class="number">1</span>, b.length())))&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">if</span>(a.substring(a.length() - <span class="number">1</span>, a.length()).equals(<span class="string">"1"</span>))&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">if</span>(jinwei)&#123;result=<span class="string">"1"</span>+result;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">else</span> &#123;result=<span class="string">"0"</span>+result;jinwei=<span class="keyword">true</span>;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    a=a.substring(<span class="number">0</span>, a.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    b=b.substring(<span class="number">0</span>, b.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (a.substring(a.length() - <span class="number">1</span>, a.length()).equals(<span class="string">"0"</span>))&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">if</span>(jinwei)&#123;result=<span class="string">"1"</span>+result;jinwei=<span class="keyword">false</span>;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">else</span> &#123;result=<span class="string">"0"</span>+result;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    a=a.substring(<span class="number">0</span>, a.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    b=b.substring(<span class="number">0</span>, b.length()-<span class="number">1</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">if</span>(a.length()==<span class="number">0</span>&amp;&amp;b.length()==<span class="number">0</span>)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">if</span>(jinwei)&#123;result=<span class="string">"1"</span>+result;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                flag=<span class="keyword">false</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> result;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
 <h2 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69. x的平方根"></a>69. x的平方根</h2><p>题目：</p>
-<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/E:%5CHexo%5Csource_posts%5CLeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95%5C69.png" alt></p>
+<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/69.png" alt></p>
 <p>思路：</p>
 <p>​        1.系统自带的方法（算法鬼才）</p>
 <p>​        2.傻瓜式：令s从1开始循环遍历，每次s+1，当s的平方大于x的时候停止，取s-1为结果</p>
@@ -27,7 +140,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(x&lt;<span class="number">2</span>)&#123;<span class="keyword">return</span> x;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">int</span> right=x;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">while</span> (right-left&gt;<span class="number">1</span>)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">int</span> mid=(left+right)/<span class="number">2</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">if</span>(x/mid&lt;mid)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                right=mid;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                left=mid;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> left;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
 <h2 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70.爬楼梯"></a>70.爬楼梯</h2><p>题目：</p>
-<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/E:%5CHexo%5Csource_posts%5CLeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95%5C70.png" alt></p>
+<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/70.png" alt></p>
 <p>思路：</p>
 <p>​        1，递归二叉树，根节点为0，两个子节点分别为1和2，然后子节点继续生成加了1或2的子节点，最后爬n阶楼梯的方式就是n出现的次数。（不会实现而且很麻烦，但是是唯一一个自己想出来的）</p>
 <p>​        2，斐波那契数列，到n阶的方法数满足斐波那契数列。到第n阶只有在n-1阶跨1阶或者在n-2阶跨2阶，所以到第N阶的方法=到第N-1的方法+到第N-2的方法，即f(n)=f(n-1)+f(n-2)。用递归来实现，结果超时了…</p>
@@ -47,11 +160,15 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">climbStairs44</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">int</span> first = <span class="number">1</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">int</span> second = <span class="number">2</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">int</span> third = first + second;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        first = second;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        second = third;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">return</span> second;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <h2 id="83-删除排序链表中的重复元素"><a href="#83-删除排序链表中的重复元素" class="headerlink" title="83.删除排序链表中的重复元素"></a>83.删除排序链表中的重复元素</h2><p>题目：</p>
-<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/E:%5CHexo%5Csource_posts%5CLeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95%5C83.png" alt></p>
+<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/83.png" alt></p>
 <p>思路：</p>
 <p>​        遍历链表，将每一项与后面项做比较，重复则将当前项的next跳过下一项指向后面。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">deleteDuplicates</span><span class="params">(ListNode head)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;<span class="keyword">return</span> <span class="keyword">null</span>;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        ListNode node = head;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">while</span> (node.next!=<span class="keyword">null</span>)&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">if</span> (node.val == node.next.val) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                node.next = node.next.next;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;<span class="keyword">else</span> &#123; node=node.next;&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> head;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
+<h2 id="88-合并两个有序数组"><a href="#88-合并两个有序数组" class="headerlink" title="88.合并两个有序数组"></a>88.合并两个有序数组</h2><p>题目：</p>
+<p><img src="/2020/05/05/LeetCode%E7%AE%80%E5%8D%95%E9%A2%98%E8%AE%B0%E5%BD%95/88.png" alt></p>
+<p>思路：</p>
+<p>先找到最大值位置(第一个0前面)，遍历nums2的每一个数与nums1最大值对比，小于则往前挪。</p>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -119,12 +236,12 @@
 <p>结果很理想</p>
 <h2 id="直接选择排序"><a href="#直接选择排序" class="headerlink" title="直接选择排序"></a>直接选择排序</h2><p>同样两层嵌套循环，每次循环假定索引为0(第一个)的是最大值，每次将最大值和后面的值比较，如果有更大的，则将更大的值的索引记为最大值的索引，最终选出最大的一个值与最后面的值交换。</p>
 <p>初始数组：3 , 9 , 7 , 6 , 1 , 5 , 2 , 4 , 8 , 0</p>
-<p><img src="/2020/05/02/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F/E:%5CHexo%5Csource_posts%5C%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%5Cxuanze.png" alt></p>
+<p><img src="/2020/05/02/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F/xuanze.png" alt></p>
 <p>代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">//初始数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">int</span> nums[]=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">9</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">0</span>&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//int max=nums[0];</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">int</span> max_index=<span class="number">0</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length-i; j++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="comment">//如果当前元素大于最大值，则令当前值为最大值</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">if</span>(nums[j]&gt;=nums[max_index])&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    max_index=j;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">continue</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">if</span>(max_index!=nums.length-i-<span class="number">1</span>) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                nums[max_index] = nums[max_index] ^ nums[nums.length - i - <span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">                nums[nums.length - i - <span class="number">1</span>] = nums[max_index] ^ nums[nums.length - i - <span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">                nums[max_index] = nums[max_index] ^ nums[nums.length - i - <span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            List ns=<span class="keyword">new</span> ArrayList();</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; nums.length; x++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                ns.add(nums[x]);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            System.out.println(ns);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
 
 <h2 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h2><p>假定第一个元素为一个已排序数组，后面的元素逐一与该数组最大值比较，如果大于最大值，接在后面且数组长度+1，小于则往前挪到合适位置。</p>
-<p><img src="/2020/05/02/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F/E:%5CHexo%5Csource_posts%5C%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%5Ccharu.png" alt></p>
+<p><img src="/2020/05/02/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F/charu.png" alt></p>
 <p>代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//初始数组</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">int</span> nums[] = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">0</span>&#125;;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="comment">//如果当前元素大于已排序数组最大值，接到数组后面且长度+1，小于则往前挪</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">if</span>(nums[i]&lt;nums[i-<span class="number">1</span>])&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="comment">//循环比较</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt;<span class="number">0</span> ; j--) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[j-<span class="number">1</span>])&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="comment">//往前挪一位</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">                    nums[j]=nums[j]^nums[j-<span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    nums[j-<span class="number">1</span>]=nums[j]^nums[j-<span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    nums[j]=nums[j]^nums[j-<span class="number">1</span>];</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                    <span class="keyword">break</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            List ns=<span class="keyword">new</span> ArrayList();</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; nums.length; x++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">                ns.add(nums[x]);</span></pre></td></tr><tr><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            System.out.println(ns);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;<span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">            <span class="keyword">continue</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(nums[i]);</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
@@ -923,8 +1040,8 @@
         <category>后端框架</category>
       </categories>
       <tags>
-        <tag>Spring Boot</tag>
         <tag>mybatis</tag>
+        <tag>Spring Boot</tag>
       </tags>
   </entry>
   <entry>
@@ -1322,9 +1439,9 @@
         <category>服务器相关</category>
       </categories>
       <tags>
+        <tag>Linux</tag>
         <tag>Aliyun</tag>
         <tag>docker</tag>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
